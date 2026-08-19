@@ -1,0 +1,138 @@
+---
+import Base from '../../../layouts/Base.astro';
+import BrowserFrame from '../../../components/BrowserFrame.astro';
+import CtaBanner from '../../../components/CtaBanner.astro';
+import { projects } from '../../../data/projects';
+import { site } from '../../../data/site';
+
+export function getStaticPaths() {
+	return projects.map((p) => ({
+		params: { slug: p.slug },
+		props: { project: p },
+	}));
+}
+
+const { project } = Astro.props;
+const index = projects.findIndex((p) => p.slug === project.slug);
+const prev = projects[(index - 1 + projects.length) % projects.length];
+const next = projects[(index + 1) % projects.length];
+
+const projectSchema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'CreativeWork',
+		name: `${project.client} — ${project.type}`,
+		headline: project.summary,
+		about: project.type,
+		dateCreated: project.year,
+		description: project.solution,
+		inLanguage: 'en',
+		publisher: { '@id': `${site.domain}/#organization` },
+		url: `${site.domain}/work/case-studies/${project.slug}`,
+		keywords: project.tags.join(', '),
+	},
+];
+---
+
+<Base
+	title={`${project.client} — ${project.type} Case Study | PromiseMe`}
+	description={project.summary}
+	path={`/work/case-studies/${project.slug}`}
+	nav="work"
+	schema={[projectSchema] as object[]}
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">CASE STUDY 0{index + 1}</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">CASE/{project.slug.toUpperCase()}</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			<span class="outline" style="-webkit-text-stroke:1px var(--ink)">{project.type}.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>{project.summary}</p>
+		<div class="page-hero__meta" data-reveal>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">CLIENT — {project.client}</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">SECTOR — {project.sector}</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">DATE — {project.year}</span>
+		</div>
+	</section>
+
+	<section class="section section--no-rule">
+		<div class="gut">
+			<BrowserFrame variant={project.diagram} url={project.clientUrl || 'promiseme.dev/system'} note="System preview" />
+		</div>
+	</section>
+
+	<!-- DETAIL -->
+	<section class="section section--no-rule" aria-labelledby="case-title">
+		<div class="case-content">
+			<div class="case-content__rail" data-reveal>
+				<dl class="case-aside">
+					<div>
+						<dt>Project type</dt>
+						<dd>{project.type}</dd>
+					</div>
+					<div>
+						<dt>Sector</dt>
+						<dd>{project.sector}</dd>
+					</div>
+					<div>
+						<dt>Tags</dt>
+						<dd>
+							<ul>
+								{project.tags.map((t) => (
+									<li>{t}</li>
+								))}
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Technology</dt>
+						<dd>
+							<ul>
+								{project.technologies.map((t) => (
+									<li>{t}</li>
+								))}
+							</ul>
+						</dd>
+					</div>
+				</dl>
+			</div>
+
+			<div class="case-content__main">
+				<h2 id="case-title">The Requirement & Challenge</h2>
+				<p style="max-width:58ch;color:var(--ink-soft)">{project.challenge}</p>
+
+				<h2>The Solution</h2>
+				<p style="max-width:58ch;color:var(--ink-soft)">{project.solution}</p>
+
+				<h2>Results & Impact</h2>
+				<div class="case-stats">
+					{
+						project.results.map((r) => (
+							<div class="case-stats__item">
+								<b style="font-size:clamp(1.4rem,3vw,2.6rem)">{r}</b>
+								<span>Validated Outcome</span>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- PREV / NEXT -->
+	<nav class="section" aria-label="More case studies">
+		<div class="gut" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+			<a class="case-row__client" href={`/work/case-studies/${prev.slug}`} style="text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
+				← {prev.client}
+			</a>
+			<a class="case-row__client" href={`/work/case-studies/${next.slug}`} style="text-transform:uppercase;justify-self:end;text-align:right;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
+				{next.client} →
+			</a>
+		</div>
+	</nav>
+
+	<CtaBanner title="Have a similar" em="project?" body="Whether you need a new website, web app, automation, or custom software — let's discuss your requirement." />
+</Base>

@@ -1,0 +1,31 @@
+---
+import { process } from '../data/process';
+---
+
+<ol class="process-list">
+	{
+		process.map((step) => (
+			<li class="process-row" id={step.theme} data-reveal>
+				<div class="process-row__num">{step.number} / {step.title}</div>
+				<div class="process-row__body">
+					<h3 class="process-row__title">
+						{step.title}
+						<span class="sub">{step.lines}</span>
+					</h3>
+					<p>{step.body}</p>
+					<ul style="display:grid;gap:0.45rem;color:var(--ink-soft);max-width:52ch">
+						{step.detail.map((d) => (
+							<li style="display:flex;gap:0.7rem">
+								<span class="mono" style="color:var(--ink);font-size:0.68rem;line-height:1.8">—</span>
+								<span>{d}</span>
+							</li>
+						))}
+					</ul>
+					<div class="process-row__foot">
+						<span class="process-row__out">IPO / {step.output}</span>
+					</div>
+				</div>
+			</li>
+		))
+	}
+</ol>

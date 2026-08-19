@@ -1,0 +1,151 @@
+---
+interface Props {
+	/** Full unique <title> for the page */
+	title: string;
+	/** Unique meta description */
+	description: string;
+	/** Canonical path, e.g. "/work" (no trailing slash for root "/") */
+	path: string;
+	/** Active nav item key: home | work | services | process | about | insights | contact */
+	nav?: string;
+	/** Open Graph type */
+	ogType?: 'website' | 'article';
+	/** Extra JSON-LD blocks (parsed as objects, merged into <script type="application/ld+json">) */
+	schema?: object[];
+	/** Override default OG image path */
+	ogImage?: string;
+	/** Page-level body class */
+	bodyClass?: string;
+}
+
+const {
+	title,
+	description,
+	path,
+	nav = 'home',
+	ogType = 'website',
+	schema = [],
+	ogImage = '/og.png',
+	bodyClass = '',
+} = Astro.props;
+
+import { site } from '../data/site';
+
+const url = `${site.domain}${path === '/' ? '/' : path}`;
+const canonical = path === '/' ? site.domain : url;
+const image = `${site.domain}${ogImage}`;
+
+const organizationschema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Organization',
+			'@id': `${site.domain}/#organization`,
+			name: site.legalName,
+			alternateName: site.name,
+			url: site.domain,
+			description: site.description,
+			slogan: site.philosophy,
+			logo: {
+				'@type': 'ImageObject',
+				url: `${site.domain}/favicon.svg`,
+			},
+			email: site.email,
+			sameAs: Object.values(site.social).filter(Boolean) as string[],
+		},
+		{
+			'@type': 'WebSite',
+			'@id': `${site.domain}/#website`,
+			url: site.domain,
+			name: site.name,
+			description: site.description,
+			publisher: { '@id': `${site.domain}/#organization` },
+			inLanguage: 'en',
+		},
+		...(path === '/' ? [] : [{
+			'@type': 'BreadcrumbList',
+			'@id': `${site.domain}${path}#breadcrumb`,
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: site.domain },
+				{
+					'@type': 'ListItem',
+					position: 2,
+					name: title.split(' — ')[0] ?? site.name,
+					item: url,
+				},
+			],
+		}]),
+	],
+};
+
+import '../styles/global.css';
+
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const jsonLd = [...organizationschema['@graph'], ...schema];
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+
+		<!-- Canonical -->
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:site_name" content={site.name} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={url} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<meta name="theme-color" content="#F8F8F6" />
+		<meta name="robots" content="index, follow" />
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script is:inline>
+			document.documentElement.classList.remove('no-js');
+			document.documentElement.classList.add('js');
+		</script>
+
+		{
+			jsonLd.map((block) => <script is:inline set:html={JSON.stringify(block)} type="application/ld+json" />)
+		}
+	</head>
+	<body class={bodyClass}>
+		<SiteHeader nav={nav} />
+		<main id="main">
+			<slot />
+		</main>
+		<SiteFooter />
+		<script type="module">
+			import '../scripts/site.ts';
+		</script>
+		<div class="cursor-fx" aria-hidden="true"></div>
+	</body>
+</html>

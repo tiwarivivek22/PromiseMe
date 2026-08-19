@@ -1,0 +1,371 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroLines from '../components/HeroLines.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import Marquee from '../components/Marquee.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { services, businessSolutions } from '../data/services';
+import { process } from '../data/process';
+import { principles, whyChooseUs } from '../data/team';
+---
+
+<Base
+	title="PromiseMe — Digital Solutions That Turn Ideas Into Working Products"
+	description="We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions. Websites, web applications, automation, and custom software."
+	path="/"
+	nav="home"
+>
+	<!-- ============================================================
+		 HERO
+	============================================================ -->
+	<section class="hero" aria-label="PromiseMe Digital Solutions">
+		<HeroLines />
+		<div class="hero__label" data-reveal>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;background:var(--accent);color:var(--accent-ink);padding:0.3rem 0.75rem;font-weight:700;border-radius:3px">
+				THINK IT. BUILD IT. AUTOMATE IT.
+			</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-soft)">
+				ONE TEAM FOR YOUR DIGITAL REQUIREMENTS
+			</span>
+		</div>
+
+		<h1 class="hero__title" data-reveal>
+			DIGITAL SOLUTIONS THAT<br />
+			TURN IDEAS INTO<br />
+			<span class="hl">WORKING PRODUCTS</span>.
+		</h1>
+
+		<div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.5rem" data-reveal>
+			{
+				['Websites', 'Web Applications', 'Automation', 'Custom Software Solutions'].map((tag) => (
+					<span class="mono" style="border:1px solid var(--rule-strong);padding:0.35rem 0.85rem;font-size:var(--fs-label);background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:3px;font-weight:600">
+						{tag}
+					</span>
+				))
+			}
+		</div>
+
+		<div class="hero__meta" data-reveal>
+			<div class="hero__actions">
+				<a class="btn" href="/contact">
+					Let's Discuss Your Requirement <span class="btn-arrow">→</span>
+				</a>
+				<a class="btn btn--ghost" href="/services">
+					Explore Services <span class="btn-arrow">↓</span>
+				</a>
+			</div>
+			<div class="hero__copy">
+				<p>
+					We help businesses, startups, and individuals transform their ideas
+					and operational requirements into reliable digital solutions. From a
+					simple business website to a complete web application or custom
+					automation system, we handle the process from planning to development and deployment.
+				</p>
+			</div>
+		</div>
+
+		<!-- Interactive System Visual -->
+		<HeroVisual />
+
+		<div class="hero__rail" aria-hidden="true">
+			WEBSITES / WEB APPS / AUTOMATION / CUSTOM SOFTWARE
+		</div>
+	</section>
+
+	<Marquee />
+
+	<!-- ============================================================
+		 ONE TEAM FOR YOUR DIGITAL REQUIREMENTS
+	============================================================ -->
+	<section class="section section--no-rule" id="capabilities" aria-labelledby="team-req-h">
+		<div class="section__head">
+			<span class="section__head-num">01 / CAPABILITIES</span>
+			<h2 class="section__head-title" id="team-req-h" data-reveal>
+				One Team for Your <span class="outline">Digital Requirements</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				Instead of managing multiple people for different technical requirements, clients can work with one team for complete digital solutions.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px), 1fr));gap:1.5rem">
+				{
+					services.slice(0, 4).map((svc) => (
+						<article class="principle card" data-reveal style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between">
+							<div>
+								<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem">
+									<div style="width:44px;height:44px;background:rgba(255,213,0,0.15);border:1px solid var(--accent);border-radius:6px;display:grid;place-items:center;color:var(--ink)">
+										<Icon name={svc.icon} size={22} />
+									</div>
+									<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint);font-weight:600">{svc.number}</span>
+								</div>
+								<h3 style="font-size:var(--fs-h3);text-transform:uppercase;margin-bottom:0.6rem">{svc.title}</h3>
+								<p style="color:var(--ink-soft);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.5">{svc.line}</p>
+								<ul style="display:grid;gap:0.6rem;border-top:1px solid var(--rule);padding-top:1.2rem">
+									{svc.included.slice(0, 5).map((item) => (
+										<li style="display:flex;gap:0.65rem;align-items:baseline;font-size:0.88rem;color:var(--ink);line-height:1.4">
+											<span style="color:var(--accent-ink);font-weight:700">•</span>
+											<span>{item}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+							<div style="margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1rem">
+								<a class="textlink" href={`/services#${svc.id}`}>
+									Explore {svc.title} <span class="arr">→</span>
+								</a>
+							</div>
+						</article>
+					))
+				}
+			</div>
+
+			<div style="margin-top:2.5rem;background:var(--paper-deep);border:1px solid var(--rule-strong);border-radius:6px;padding:1.6rem 2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem" data-reveal>
+				<div style="display:flex;align-items:center;gap:0.8rem">
+					<div style="color:var(--accent-ink);background:var(--accent);width:28px;height:28px;border-radius:4px;display:grid;place-items:center;flex-shrink:0">
+						<Icon name="zap" size={16} />
+					</div>
+					<p class="mono" style="font-size:var(--fs-label);letter-spacing:0.06em;color:var(--ink);font-weight:700">
+						We don't sell predefined packages — we build around the client's actual requirement.
+					</p>
+				</div>
+				<a class="btn btn--ghost" href="/contact">
+					Get a Custom Quote <span class="btn-arrow">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 FROM REQUIREMENT TO REALITY (PROCESS)
+	============================================================ -->
+	<section class="section" id="process" aria-labelledby="process-h">
+		<div class="section__head">
+			<span class="section__head-num">02 / WORKFLOW</span>
+			<h2 class="section__head-title" id="process-h" data-reveal>
+				From Requirement to <span class="hl">Reality</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				Clear communication at every stage means fewer surprises and better results.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 200px), 1fr));gap:1rem;margin-bottom:3rem">
+				{
+					process.map((step, i) => (
+						<div class="process-pill card" data-reveal style="padding:1.4rem;position:relative">
+							<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem">
+								<span class="mono" style="font-size:var(--fs-meta);color:var(--ink-faint);font-weight:600">STEP 0{i + 1}</span>
+								{i < process.length - 1 && <span class="mono" style="color:var(--ink-faint);display:none;@media(min-width:768px){display:inline}">→</span>}
+							</div>
+							<h3 style="font-size:1.15rem;text-transform:uppercase;margin-bottom:0.5rem">{step.title}</h3>
+							<p style="font-size:0.85rem;color:var(--ink-soft);line-height:1.45">{step.intro}</p>
+						</div>
+					))
+				}
+			</div>
+
+			<ol class="process-list">
+				{
+					process.map((step) => (
+						<li class="process-row" id={step.theme} data-reveal>
+							<div class="process-row__num">{step.number} / {step.title.toUpperCase()}</div>
+							<div class="process-row__body">
+								<h3 class="process-row__title">
+									{step.title}
+									<span class="sub">{step.lines}</span>
+								</h3>
+								<p>{step.body}</p>
+								<ul style="display:grid;gap:0.45rem;color:var(--ink-soft);max-width:52ch">
+									{step.detail.map((d) => (
+										<li style="display:flex;gap:0.7rem;line-height:1.4">
+											<span class="mono" style="color:var(--ink);font-size:0.68rem;line-height:1.8">—</span>
+											<span>{d}</span>
+										</li>
+									))}
+								</ul>
+								<div class="process-row__foot">
+									<span class="process-row__out">DELIVERABLE / {step.output}</span>
+								</div>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 WE FOCUS ON THE PROBLEM, NOT JUST THE SOFTWARE
+	============================================================ -->
+	<section class="section section--dark" id="philosophy" aria-labelledby="phil-h">
+		<div class="section__head section__head--dark">
+			<span class="section__head-num">03 / PHILOSOPHY</span>
+			<h2 class="section__head-title" id="phil-h" data-reveal>
+				We Focus on the <span style="color:var(--accent)">Problem</span>, Not Just the Software
+			</h2>
+			<span class="section__head-note" data-reveal>
+				A good digital solution isn't simply about having more features. It should make the business faster, simpler, and more efficient. Technology that solves a business problem — not technology for the sake of technology.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 240px), 1fr));gap:1.5rem">
+				{
+					principles.map((p) => (
+						<div class="pillar" style="border-top-color:var(--accent);color:var(--paper);padding-top:1.4rem" data-reveal>
+							<span class="mono" style="color:var(--accent);font-size:var(--fs-meta);letter-spacing:0.14em;font-weight:700">
+								{p.number} / PRINCIPLE
+							</span>
+							<h3 style="color:var(--paper);font-size:var(--fs-h3);text-transform:uppercase;margin:0.8rem 0">
+								{p.title}
+							</h3>
+							<p style="color:rgba(248,248,246,0.75);font-size:0.92rem;line-height:1.6">
+								{p.body}
+							</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 FROM SIMPLE WEBSITES TO COMPLETE BUSINESS SYSTEMS
+	============================================================ -->
+	<section class="section" id="systems" aria-labelledby="systems-h">
+		<div class="section__head">
+			<span class="section__head-num">04 / SOLUTIONS SPECTRUM</span>
+			<h2 class="section__head-title" id="systems-h" data-reveal>
+				From Simple Websites to <span class="outline">Complete Business Systems</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				Whether you need a standalone marketing presence or an integrated operational backbone, we build software scaled to your exact requirements.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 260px), 1fr));gap:1.5rem">
+				{
+					businessSolutions.map((sol, idx) => (
+						<div class="card" data-reveal style="display:flex;flex-direction:column;justify-content:space-between">
+							<div>
+								<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+									<div style="width:40px;height:40px;background:var(--paper-deep);border:1px solid var(--rule-strong);border-radius:6px;display:grid;place-items:center;color:var(--ink)">
+										<Icon name={sol.icon} size={20} />
+									</div>
+									<span class="mono" style="font-size:var(--fs-meta);color:var(--ink-faint);font-weight:600">0{idx + 1}</span>
+								</div>
+								<h3 style="font-size:1.15rem;text-transform:uppercase;margin-bottom:0.7rem;line-height:1.2">{sol.title}</h3>
+								<p style="color:var(--ink-soft);font-size:0.9rem;line-height:1.5">{sol.desc}</p>
+							</div>
+							<div style="margin-top:1.4rem;border-top:1px solid var(--rule);padding-top:0.8rem">
+								<a class="textlink" href="/contact">
+									Request info <span class="arr">→</span>
+								</a>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 WHY CLIENTS CHOOSE US
+	============================================================ -->
+	<section class="section section--paper-deep" id="why-us" aria-labelledby="why-h">
+		<div class="section__head">
+			<span class="section__head-num">05 / WHY PROMISEME</span>
+			<h2 class="section__head-title" id="why-h" data-reveal>
+				Why Clients <span class="hl">Choose Us</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				Your requirement becomes our development roadmap.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px), 1fr));gap:1.8rem">
+				{
+					whyChooseUs.map((w) => (
+						<article class="principle card" data-reveal style="padding:2rem">
+							<div style="width:48px;height:48px;background:rgba(255,213,0,0.18);border:1px solid var(--accent);border-radius:6px;display:grid;place-items:center;color:var(--ink);margin-bottom:1.2rem">
+								<Icon name={w.icon} size={24} />
+							</div>
+							<h3 style="font-size:var(--fs-h3);text-transform:uppercase;margin-bottom:0.6rem">{w.title}</h3>
+							<p style="color:var(--ink-soft);font-size:0.95rem;line-height:1.6">{w.body}</p>
+						</article>
+					))
+				}
+			</div>
+
+			<div style="margin-top:3rem;text-align:center;padding:2.2rem var(--gutter);background:var(--ink);color:var(--paper);border-radius:6px" data-reveal>
+				<p class="mono" style="font-size:var(--fs-lede);color:var(--accent);letter-spacing:0.12em;font-weight:700">
+					YOUR REQUIREMENT BECOMES OUR DEVELOPMENT ROADMAP.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 CONTACT / DISCUSS REQUIREMENT
+	============================================================ -->
+	<section class="section" id="contact" aria-labelledby="contact-h">
+		<div class="section__head">
+			<span class="section__head-num">06 / GET IN TOUCH</span>
+			<h2 class="section__head-title" id="contact-h" data-reveal>
+				Have an Idea or a <span class="outline">Problem to Solve?</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				Whether you need a new website, a custom business application, an automation system, or a completely customized digital solution — let's discuss your requirement.
+			</span>
+		</div>
+
+		<div class="gut" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:clamp(2rem,4vw,5rem);align-items:start">
+			<div>
+				<h3 style="font-size:var(--fs-h3);text-transform:uppercase;margin-bottom:0.8rem">Let's Discuss Your Requirement</h3>
+				<p style="color:var(--ink-soft);margin-bottom:1.6rem;line-height:1.55">
+					Tell us what you want to achieve. We'll help you figure out what needs to be built.
+				</p>
+				<ContactForm />
+			</div>
+
+			<aside style="display:grid;gap:1.8rem;justify-items:start;background:var(--paper-deep);border:1px solid var(--rule-strong);border-radius:6px;padding:clamp(1.5rem, 3vw, 2.2rem)">
+				<div>
+					<span class="meta" style="color:var(--ink);font-weight:700">We can help you with:</span>
+					<ul style="margin-top:0.8rem;display:grid;gap:0.5rem">
+						{site.capabilities.map((cap) => (
+							<li style="display:flex;gap:0.7rem;align-items:center;color:var(--ink-soft);font-size:0.92rem;line-height:1.4">
+								<span style="color:var(--accent-ink);display:flex;align-items:center">
+									<Icon name="check" size={15} />
+								</span>
+								<span>{cap}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div style="border-top:1px solid var(--rule);padding-top:1.4rem;width:100%">
+					<span class="meta" style="color:var(--ink);font-weight:700">Direct Founder Contact</span>
+					<h4 style="font-size:1.25rem;margin-top:0.4rem;text-transform:uppercase">{site.founder}</h4>
+					<p style="margin-top:0.6rem">
+						<a href={`mailto:${site.email}`} style="border-bottom:1px solid var(--rule-strong);font-weight:600">{site.email}</a>
+					</p>
+					<p style="margin-top:0.4rem">
+						<a href={`tel:${site.phone}`} style="font-weight:600">{site.phone}</a>
+					</p>
+				</div>
+
+				<div class="mono" style="color:var(--ink-soft);font-size:var(--fs-meta);letter-spacing:0.08em;border-top:1px solid var(--rule);padding-top:1.2rem;width:100%;line-height:1.8">
+					<p>Availability: {site.hours}</p>
+					<p>Response: {site.responseTime}</p>
+				</div>
+			</aside>
+		</div>
+	</section>
+</Base>

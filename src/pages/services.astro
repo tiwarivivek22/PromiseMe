@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectPreview from '../components/ProjectPreview.astro';
+import ProcessSequence from '../components/ProcessSequence.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Icon from '../components/Icon.astro';
+import { services, businessSolutions } from '../data/services';
+import { site } from '../data/site';
+
+const serviceSchema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		itemListElement: services.map((s, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			item: {
+				'@type': 'Service',
+				name: s.title,
+				description: s.body,
+				serviceType: s.title,
+				provider: { '@id': `${site.domain}/#organization` },
+				url: `${site.domain}/services#${s.id}`,
+				areaServed: 'Worldwide',
+			},
+		})),
+	},
+];
+---
+
+<Base
+	title="Services & Digital Solutions — Websites, Web Apps, Automation | PromiseMe"
+	description="Custom digital solutions built around your business: websites, web applications, business software, automation, and integrations. We build around your actual requirement."
+	path="/services"
+	nav="services"
+	schema={[serviceSchema] as object[]}
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">01 / SOLUTIONS</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">ONE TEAM FOR YOUR DIGITAL REQUIREMENTS</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			Our<br />
+			<span class="outline">Services.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>
+			We don't sell predefined packages — we build around the client's actual requirement. From simple websites to complete business automation systems.
+		</p>
+		<div class="page-hero__meta" data-reveal>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint);display:inline-flex;align-items:center;gap:0.4rem">
+				<Icon name="globe" size={14} color="var(--ink)" /> WEBSITES
+			</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint);display:inline-flex;align-items:center;gap:0.4rem">
+				<Icon name="laptop" size={14} color="var(--ink)" /> WEB APPLICATIONS
+			</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint);display:inline-flex;align-items:center;gap:0.4rem">
+				<Icon name="gear" size={14} color="var(--ink)" /> AUTOMATION
+			</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint);display:inline-flex;align-items:center;gap:0.4rem">
+				<Icon name="wrench" size={14} color="var(--ink)" /> CUSTOM SOFTWARE
+			</span>
+		</div>
+	</section>
+
+	<!-- SERVICE SECTIONS -->
+	{
+		services.map((s, i) => (
+			<section class={`section ${i % 2 === 1 ? 'section--paper-deep' : ''}`} id={s.id} aria-labelledby={`${s.id}-title`}>
+				<div class="section__head">
+					<span class="section__head-num">{s.number} / {s.title.toUpperCase()}</span>
+					<h2 class="section__head-title" id={`${s.id}-title`} data-reveal>
+						{s.title}
+					</h2>
+					<span class="section__head-note" data-reveal>{s.line}</span>
+				</div>
+
+				<div class="gut svc" style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:clamp(2.5rem,6vw,7rem);align-items:start">
+					<div class="svc__left" style="display:grid;gap:2rem">
+						<div>
+							<span class="meta">What it is</span>
+							<p class="svc-body" style="margin-top:1rem;max-width:52ch;font-size:var(--fs-lede);line-height:1.5">{s.body}</p>
+						</div>
+						<div>
+							<span class="meta">What We Deliver</span>
+							<ul class="svc-inc" style="margin-top:1rem;display:grid;gap:0.55rem;max-width:52ch">
+								{s.included.map((inc) => (
+									<li style="display:flex;gap:0.8rem;align-items:baseline">
+										<span class="mono" style="font-size:0.68rem;color:var(--ink)">→</span>
+										<span style="color:var(--ink-soft)">{inc}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+
+					<div class="svc__right" style="display:grid;gap:2.5rem;justify-items:start">
+						<div class="svc-vis" style="border:1px solid var(--rule-strong);width:100%;position:relative;aspect-ratio:7/4;overflow:hidden">
+							<ProjectPreview variant={s.diagram} label={`Abstract technical diagram for ${s.title}.`} />
+						</div>
+
+						<div style="display:grid;gap:1.6rem">
+							{s.subsections.map((sub) => (
+								<div>
+									<h3 class="meta" style="color:var(--ink)">{sub.heading}</h3>
+									<p style="margin-top:0.6rem;color:var(--ink-soft);max-width:44ch">{sub.text}</p>
+								</div>
+							))}
+						</div>
+
+						<div>
+							<span class="meta">Technology Stack</span>
+							<ul class="case-aside" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.9rem">
+								{s.stack.map((t) => (
+									<li style="font-family:var(--mono);font-size:var(--fs-meta);letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--rule-strong);padding:0.35em 0.7em">{t}</li>
+								))}
+							</ul>
+						</div>
+
+						<a class="btn btn--ghost" href="/contact">
+							Discuss Your {s.title} Requirement <span class="btn-arrow">→</span>
+						</a>
+					</div>
+				</div>
+			</section>
+		))
+	}
+
+	<!-- 8 SYSTEMS OVERVIEW -->
+	<section class="section section--dark" aria-labelledby="systems-grid-title">
+		<div class="section__head section__head--dark">
+			<span class="section__head-num">SYSTEMS</span>
+			<h2 class="section__head-title" id="systems-grid-title" data-reveal>From Simple Websites to Complete Business Systems</h2>
+			<span class="section__head-note" data-reveal>
+				If your requirement doesn't fit a standard category, we build the solution around it.
+			</span>
+		</div>
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 260px), 1fr));gap:1.5rem">
+				{
+					businessSolutions.map((sol, idx) => (
+						<div class="pillar" style="border-top-color:var(--accent);padding-top:1.4rem" data-reveal>
+							<div style="width:36px;height:36px;background:rgba(255,213,0,0.15);border:1px solid var(--accent);border-radius:4px;display:grid;place-items:center;color:var(--accent);margin-bottom:0.8rem">
+								<Icon name={sol.icon} size={20} color="var(--accent)" />
+							</div>
+							<h3 style="color:var(--paper);font-size:1.15rem;text-transform:uppercase;margin-bottom:0.6rem">{sol.title}</h3>
+							<p style="color:rgba(248,248,246,0.7);font-size:0.88rem;line-height:1.5">{sol.desc}</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- PROCESS OVERVIEW -->
+	<section class="section" aria-labelledby="svc-process-title">
+		<div class="section__head">
+			<span class="section__head-num">DELIVERY</span>
+			<h2 class="section__head-title" id="svc-process-title" data-reveal>From Requirement to Reality</h2>
+			<span class="section__head-note" data-reveal>
+				Clear communication at every stage means fewer surprises and better results. Full breakdown on our
+				<a class="textlink" href="/process" style="display:inline-flex;margin-left:0.4rem">Process page <span class="arr">→</span></a>.
+			</span>
+		</div>
+		<div class="gut">
+			<ProcessSequence />
+		</div>
+	</section>
+
+	<CtaBanner title="Have a requirement to" em="build?" body="Tell us what you want to achieve. We'll help you figure out what needs to be built." />
+</Base>

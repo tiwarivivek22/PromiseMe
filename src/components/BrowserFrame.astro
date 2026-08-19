@@ -1,0 +1,27 @@
+---
+import ProjectPreview from './ProjectPreview.astro';
+
+interface Props {
+	variant: 'browser' | 'blocks' | 'flow' | 'modules' | 'lines' | 'sync';
+	url?: string;
+	note?: string;
+}
+const { variant, url, note } = Astro.props;
+---
+
+<figure class="browser">
+	<div class="browser__bar">
+		<span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+		<span class="browser__url">{url ?? 'client.example.internal'}</span>
+		<span class="mono" style="font-size:0.62rem;letter-spacing:0.1em;color:var(--ink-faint)">[ELD]</span>
+	</div>
+	<div class="browser__body">
+		<p class="browser__placeholder-note">
+			<b>FILE_PREVIEW.SVG</b>
+			<span>{note ?? '[REAL CONTENT NEEDED — replace with actual project screenshot]'}</span>
+		</p>
+		<div class="browser__art">
+			<ProjectPreview variant={variant} />
+		</div>
+	</div>
+</figure>

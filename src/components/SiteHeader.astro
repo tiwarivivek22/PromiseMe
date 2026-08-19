@@ -1,0 +1,104 @@
+---
+import { site } from '../data/site';
+import { services } from '../data/services';
+
+interface Props {
+	nav?: 'home' | 'services' | 'process' | 'about' | 'insights' | 'contact' | 'work';
+}
+const { nav = 'home' } = Astro.props;
+
+const item = (label: string, href: string, key: string, num: string) => ({
+	label,
+	href,
+	key,
+	num,
+});
+
+const navItems = [
+	item('Services', '/services', 'services', '01'),
+	item('Process', '/process', 'process', '02'),
+	item('About', '/about', 'about', '03'),
+	item('Work', '/work', 'work', '04'),
+	item('Contact', '/contact', 'contact', '05'),
+];
+
+const servicesSub = services.map((s) => ({ label: s.title, href: `/services#${s.id}`, num: s.number }));
+const aboutSub = [
+	{ label: 'Principles', href: '/about#approach', num: 'P' },
+	{ label: 'Why Choose Us', href: '/about#why-us', num: 'W' },
+	{ label: 'Team', href: '/about#team', num: 'T' },
+];
+---
+
+<header class="site-header">
+	<div class="site-header__inner">
+		<a class="brand" href="/" aria-label={`${site.name} — Home`}>
+			<span class="brand__mark" aria-hidden="true"></span>
+			<span>{site.name}</span>
+			<span class="brand__tag" aria-hidden="true">/DIGITAL SOLUTIONS</span>
+		</a>
+
+		<nav class="site-nav" aria-label="Primary">
+			<ul class="site-nav__list">
+				<li class="site-nav__item"><a class="site-nav__link" href="/" aria-current={nav === 'home' ? 'page' : undefined}>Home</a></li>
+				{
+					navItems.map((it) => (
+						<li class="site-nav__item" data-dropdown={it.key}>
+							<a
+								class="site-nav__link"
+								href={it.href}
+								aria-current={nav === it.key ? 'page' : undefined}
+								aria-haspopup={it.key === 'services' || it.key === 'about' ? 'true' : undefined}
+								data-drop-toggle
+							>
+								{it.label}
+							</a>
+							{
+								it.key === 'services' || it.key === 'about' ? (
+									<div class="dropdown" data-drop-panel>
+										{(it.key === 'services' ? servicesSub : aboutSub).map((s) => (
+											<a href={s.href}>
+												<span>{s.label}</span>
+												<span class="d-num">{s.num}</span>
+											</a>
+										))}
+									</div>
+								) : null
+							}
+						</li>
+					))
+				}
+				<li class="site-nav__item">
+					<a class="btn site-nav__cta" href="/contact">Discuss Requirement</a>
+				</li>
+			</ul>
+		</nav>
+
+		<button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+			<span></span><span></span><span></span>
+		</button>
+	</div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+	<nav aria-label="Mobile">
+		<a class="mobile-menu__link" href="/"><span class="nth">00</span> Home</a>
+		{
+			navItems.map((it) => (
+				<div>
+					<a class="mobile-menu__link" href={it.href}><span class="nth">{it.num}</span> {it.label}</a>
+					{
+						it.key === 'services' || it.key === 'about' ? (
+							<div class="mobile-menu__sub">
+								{(it.key === 'services' ? servicesSub : aboutSub).map((s) => (
+									<a href={s.href}>{s.label}</a>
+								))}
+							</div>
+						) : null
+					}
+				</div>
+			))
+		}
+	</nav>
+	<a class="btn" href="/contact" style="margin-top:2rem">Discuss Requirement</a>
+</div>

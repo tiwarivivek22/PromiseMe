@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+	title="404 — Page Not Found | PromiseMe"
+	description="This page is not in the system. Return to the home page to explore our digital solutions."
+	path="/404"
+	nav="home"
+>
+	<section class="notfound" aria-labelledby="nf-title">
+		<p class="notfound__code" aria-hidden="true">404</p>
+		<h1 id="nf-title" class="display" style="font-size:var(--fs-h2)">This page is not in the system.</h1>
+		<p style="color:var(--ink-soft);max-width:42ch">
+			Either the URL changed or the route does not exist. Return to the home page
+			to find what you're looking for.
+		</p>
+		<a class="btn" href="/">
+			Back to Home <span class="btn-arrow">→</span>
+		</a>
+	</section>
+</Base>

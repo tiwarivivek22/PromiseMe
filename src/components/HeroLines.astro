@@ -1,0 +1,62 @@
+---
+/**
+ * Subtle animated “technical line system” behind the home hero.
+ * Purely decorative; animation pauses for prefers-reduced-motion.
+ */
+---
+
+<style>
+	.hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+	.hero-lines svg { width: 100%; height: 100%; }
+	.line-dash {
+		stroke: rgba(26, 26, 26, 0.16);
+		stroke-width: 0.75;
+	}
+	.line-dash--accent {
+		stroke: #ffd500;
+		stroke-width: 2;
+	}
+	.node { stroke: #1a1a1a; stroke-width: 1; fill: #f8f8f6; }
+	.node--accent { stroke: #1a1a1a; stroke-width: 1.5; fill: #ffd500; }
+	.lbl, .live { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.2em; fill: rgba(26,26,26,0.42); text-transform: uppercase; }
+	.live { font-size: 7.5px; letter-spacing: 0.26em; }
+
+	.animate-dash { animation: dashflow 14s linear infinite; }
+	.animate-dash-alt { animation: dashflow 20s linear infinite reverse; }
+
+	@keyframes dashflow {
+		from { stroke-dashoffset: 0; }
+		to { stroke-dashoffset: -600; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.animate-dash, .animate-dash-alt { animation: none; }
+	}
+</style>
+
+<div class="hero-lines" aria-hidden="true">
+	<svg viewBox="0 0 1440 860" preserveAspectRatio="xMinYMin slice">
+		<g>
+			<line class="line-dash animate-dash" x1="0" y1="120" x2="1440" y2="120" stroke-dasharray="6 10" />
+			<line class="line-dash animate-dash-alt" x1="0" y1="260" x2="1440" y2="260" stroke-dasharray="2 14" />
+			<line class="line-dash animate-dash" x1="0" y1="520" x2="1440" y2="520" stroke-dasharray="9 8" />
+			<line class="line-dash animate-dash-alt" x1="0" y1="700" x2="1440" y2="700" stroke-dasharray="3 12" />
+			<line class="line-dash animate-dash" x1="0" y1="820" x2="1440" y2="820" stroke-dasharray="7 13" />
+			<line class="line-dash--accent" x1="300" y1="0" x2="300" y2="860" stroke-dasharray="18 40" />
+			<line class="line-dash" x1="620" y1="0" x2="620" y2="860" stroke-dasharray="1 12" />
+			<line class="line-dash" x1="1060" y1="0" x2="1060" y2="860" stroke-dasharray="5 9" />
+		</g>
+		{/* nodes on the lines */}
+		<circle class="node" cx="420" cy="120" r="3.5" />
+		<circle class="node" cx="940" cy="120" r="3.5" />
+		<circle class="node--accent" cx="1060" cy="260" r="5" />
+		<circle class="node" cx="180" cy="520" r="3.5" />
+		<circle class="node" cx="760" cy="700" r="3.5" />
+		<circle class="node" cx="1240" cy="820" r="3.5" />
+
+		<text class="live" x="130" y="104">T+00.000</text>
+		<text class="live" x="960" y="108">LAT / 41.3899</text>
+		<text class="live" x="1070" y="242">NODE 02</text>
+		<text class="live" x="300" y="500">SYS.HEARTBEAT</text>
+	</svg>
+</div>

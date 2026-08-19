@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import { process, methodology, toolsAndTech } from '../data/process';
+import CtaBanner from '../components/CtaBanner.astro';
+---
+
+<Base
+	title="From Requirement to Reality — Our Process | PromiseMe"
+	description="Our 5-stage development process: Understand, Plan, Design & Build, Test & Refine, Deploy & Support. Clear communication at every stage means fewer surprises and better results."
+	path="/process"
+	nav="process"
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">02 / WORKFLOW</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">FROM REQUIREMENT TO REALITY</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			How We<br />
+			<span class="outline">Build.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>
+			Clear communication at every stage means fewer surprises and better results. We focus on the problem, not just the software.
+		</p>
+		<div class="page-hero__meta" data-reveal>
+			{process.map((s) => (
+				<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">
+					{s.number} {s.title}
+				</span>
+			))}
+		</div>
+	</section>
+
+	<!-- DEEP DIVE -->
+	<section class="section section--no-rule" aria-label="Process deep dive">
+		<div class="gut" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:clamp(2rem,5vw,6rem);align-items:start">
+			<nav class="process-nav" aria-label="Process steps">
+				{
+					process.map((s) => (
+						<a href={`#${s.theme}`}>
+							<span>{s.number} {s.title}</span>
+							<span>{s.lines}</span>
+						</a>
+					))
+				}
+			</nav>
+
+			<ol class="process-list" style="border-top:1px solid var(--rule-strong)">
+				{
+					process.map((step) => (
+						<li class="process-row" id={step.theme} data-reveal>
+							<div class="process-row__num">{step.number} / {step.title.toUpperCase()}</div>
+							<div class="process-row__body">
+								<h2 class="process-row__title">
+									{step.title}
+									<span class="sub">{step.lines} — {step.intro}</span>
+								</h2>
+								<p>{step.body}</p>
+								<ul style="display:grid;gap:0.45rem;color:var(--ink-soft);max-width:52ch">
+									{step.detail.map((d) => (
+										<li style="display:flex;gap:0.7rem">
+											<span class="mono" style="color:var(--ink);font-size:0.68rem;line-height:1.8">—</span>
+											<span>{d}</span>
+										</li>
+									))}
+								</ul>
+								<div class="process-row__foot">
+									<span class="process-row__out">DELIVERABLE / {step.output}</span>
+								</div>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<!-- METHODOLOGY + TOOLS -->
+	<section class="section section--dark" aria-labelledby="method-title">
+		<div class="section__head section__head--dark">
+			<span class="section__head-num">METHOD</span>
+			<h2 class="section__head-title" id="method-title" data-reveal>Why Clients Trust Our Process</h2>
+			<span class="section__head-note" data-reveal>
+				Your requirement becomes our development roadmap.
+			</span>
+		</div>
+		<div class="gut pillars">
+			{
+				methodology.map((m, i) => (
+					<div class="pillar" style="border-top-color:var(--accent);color:var(--paper)">
+						<h3 style="color:var(--paper)">
+							<span class="mono" style="color:var(--accent)">0{i + 1}</span> {m.title}
+						</h3>
+						<p style="color:rgba(248,248,246,0.66)">{m.text}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="tools-title">
+		<div class="section__head">
+			<span class="section__head-num">STACK</span>
+			<h2 class="section__head-title" id="tools-title" data-reveal>Tools &amp; Technologies</h2>
+			<span class="section__head-note" data-reveal>
+				Modern, robust tech stack selected to deliver high performance, reliability, and scale.
+			</span>
+		</div>
+		<div class="gut" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2.5rem">
+			{
+				toolsAndTech.map((t) => (
+					<div>
+						<h3 class="meta" style="color:var(--ink);margin-bottom:1rem">{t.group}</h3>
+						<ul style="display:grid;gap:0.5rem">
+							{t.items.map((item) => (
+								<li style="display:flex;gap:0.7rem;align-items:baseline;color:var(--ink-soft)">
+									<span class="mono" style="font-size:0.68rem;color:var(--ink)">→</span>
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<CtaBanner title="Let's discuss your" em="requirement." body="Tell us what you want to achieve. We'll help you figure out what needs to be built." />
+</Base>

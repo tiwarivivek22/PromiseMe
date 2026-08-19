@@ -1,0 +1,415 @@
+---
+/**
+ * Modern, high-detail vector artwork for project previews and service
+ * sections. Crisp, responsive, and styled to PromiseMe design language.
+ */
+interface Props {
+	variant: 'browser' | 'blocks' | 'flow' | 'modules' | 'lines' | 'sync';
+	label?: string;
+}
+const { variant, label } = Astro.props;
+
+const INK = '#1A1A1A';
+const PAPER = '#F8F8F6';
+const ACCENT = '#FFD500';
+const FAINT = 'rgba(26,26,26,0.15)';
+const MID = 'rgba(26,26,26,0.35)';
+---
+
+<style>
+	.pwrap {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 220px;
+		background: var(--paper);
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.pwrap svg {
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+	}
+</style>
+
+<div class="pwrap">
+	<svg viewBox="0 0 700 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label ?? 'System illustration'}>
+		<defs>
+			<pattern id="grid-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+				<circle cx="2" cy="2" r="1" fill="rgba(26,26,26,0.08)" />
+			</pattern>
+			<linearGradient id="accent-grad" x1="0" y1="0" x2="1" y2="1">
+				<stop offset="0%" stop-color="#FFD500" />
+				<stop offset="100%" stop-color="#FFB700" />
+			</linearGradient>
+			<filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+				<feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.12" />
+			</filter>
+		</defs>
+
+		<!-- Background Grid -->
+		<rect width="700" height="420" fill={PAPER} />
+		<rect width="700" height="420" fill="url(#grid-dots)" />
+
+		{
+			variant === 'browser' && (
+				<g filter="url(#shadow)">
+					<!-- Browser Window -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#FFFFFF" stroke={INK} stroke-width="1.5" />
+					<rect x="40" y="30" width="620" height="38" rx="8" fill="#F1EFE9" stroke={INK} stroke-width="1.5" />
+					<rect x="40" y="58" width="620" height="10" fill="#F1EFE9" />
+					
+					<!-- Window Controls -->
+					<circle cx="62" cy="49" r="4.5" fill="#FF5F56" stroke="rgba(0,0,0,0.15)" stroke-width="0.5" />
+					<circle cx="78" cy="49" r="4.5" fill="#FFBD2E" stroke="rgba(0,0,0,0.15)" stroke-width="0.5" />
+					<circle cx="94" cy="49" r="4.5" fill="#27C93F" stroke="rgba(0,0,0,0.15)" stroke-width="0.5" />
+					
+					<!-- URL Bar -->
+					<rect x="130" y="40" width="380" height="18" rx="4" fill="#FFFFFF" stroke={FAINT} stroke-width="1" />
+					<text x="142" y="53" font-family="'JetBrains Mono', monospace" font-size="9" fill="#777">https://client-brand.com</text>
+					<rect x="540" y="42" width="100" height="14" rx="3" fill="url(#accent-grad)" />
+					<text x="590" y="52" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill={INK} text-anchor="middle">LIVE 100/100</text>
+
+					<!-- Content: Hero Layout -->
+					<rect x="70" y="95" width="280" height="24" rx="3" fill={INK} />
+					<rect x="70" y="128" width="220" height="14" rx="2" fill="url(#accent-grad)" />
+					<rect x="70" y="152" width="340" height="8" rx="2" fill={FAINT} />
+					<rect x="70" y="166" width="290" height="8" rx="2" fill={FAINT} />
+					<rect x="70" y="180" width="240" height="8" rx="2" fill={FAINT} />
+
+					<!-- CTA Buttons -->
+					<rect x="70" y="206" width="110" height="28" rx="3" fill={INK} />
+					<text x="125" y="224" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#FFFFFF" text-anchor="middle">DISCOVER →</text>
+					<rect x="190" y="206" width="90" height="28" rx="3" fill="none" stroke={INK} stroke-width="1" />
+					<text x="235" y="224" font-family="'JetBrains Mono', monospace" font-size="9" fill={INK} text-anchor="middle">PORTFOLIO</text>
+
+					<!-- Card Grid / Media Right -->
+					<rect x="430" y="95" width="200" height="140" rx="4" fill="#F8F8F6" stroke={INK} stroke-width="1" />
+					<rect x="445" y="110" width="170" height="70" rx="3" fill="url(#accent-grad)" opacity="0.85" />
+					<rect x="445" y="190" width="120" height="10" rx="2" fill={INK} />
+					<rect x="445" y="206" width="150" height="6" rx="2" fill={FAINT} />
+
+					<!-- Footer Feature Strip -->
+					<line x1="40" y1="260" x2="660" y2="260" stroke={FAINT} stroke-width="1" />
+					<rect x="70" y="280" width="165" height="80" rx="4" fill="#F8F8F6" stroke={FAINT} stroke-width="1" />
+					<rect x="85" y="295" width="40" height="6" fill={INK} />
+					<rect x="85" y="308" width="130" height="5" fill={FAINT} />
+					<rect x="85" y="318" width="100" height="5" fill={FAINT} />
+					<circle cx="215" cy="340" r="10" fill="url(#accent-grad)" />
+
+					<rect x="255" y="280" width="165" height="80" rx="4" fill="#F8F8F6" stroke={FAINT} stroke-width="1" />
+					<rect x="270" y="295" width="50" height="6" fill={INK} />
+					<rect x="270" y="308" width="130" height="5" fill={FAINT} />
+					<rect x="270" y="318" width="90" height="5" fill={FAINT} />
+					<circle cx="400" cy="340" r="10" fill={INK} />
+
+					<rect x="440" y="280" width="190" height="80" rx="4" fill="#F8F8F6" stroke={FAINT} stroke-width="1" />
+					<rect x="455" y="295" width="60" height="6" fill={INK} />
+					<rect x="455" y="308" width="150" height="5" fill={FAINT} />
+					<rect x="455" y="318" width="110" height="5" fill={FAINT} />
+					<circle cx="610" cy="340" r="10" fill="url(#accent-grad)" />
+				</g>
+			)
+		}
+
+		{
+			variant === 'blocks' && (
+				<g filter="url(#shadow)">
+					<!-- Dashboard Frame -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#141414" stroke="#333333" stroke-width="1.5" />
+					
+					<!-- Sidebar -->
+					<rect x="40" y="30" width="140" height="360" rx="8" fill="#1C1C1C" />
+					<rect x="170" y="30" width="10" height="360" fill="#1C1C1C" />
+					<line x1="180" y1="30" x2="180" y2="390" stroke="#2B2B2B" stroke-width="1" />
+
+					<!-- Sidebar Items -->
+					<rect x="60" y="55" width="90" height="16" rx="3" fill="url(#accent-grad)" />
+					<text x="68" y="67" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#141414">PROMISE/APP</text>
+					
+					{[0, 1, 2, 3, 4].map((i) => (
+						<g key={`sb${i}`}>
+							<rect x="60" y={95 + i * 36} width="100" height="24" rx="3" fill={i === 0 ? 'rgba(255,213,0,0.15)' : 'transparent'} />
+							<circle cx="72" cy={107 + i * 36} r="3" fill={i === 0 ? ACCENT : '#666'} />
+							<rect x="84" y={103 + i * 36} width={i === 0 ? 65 : 55} height="7" rx="1" fill={i === 0 ? '#FFFFFF' : '#777'} />
+						</g>
+					))}
+
+					<!-- Top Header Bar -->
+					<rect x="200" y="50" width="220" height="14" rx="2" fill="#FFFFFF" />
+					<rect x="540" y="46" width="95" height="22" rx="3" fill="url(#accent-grad)" />
+					<text x="587" y="60" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#141414" text-anchor="middle">+ NEW WORKFLOW</text>
+
+					<!-- Stat Widgets -->
+					<rect x="200" y="85" width="130" height="70" rx="4" fill="#202020" stroke="#333" stroke-width="1" />
+					<text x="215" y="105" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">ACTIVE USERS</text>
+					<text x="215" y="132" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#FFF">14,820</text>
+					<text x="285" y="130" font-family="'JetBrains Mono', monospace" font-size="9" fill="#27C93F">+24%</text>
+
+					<rect x="345" y="85" width="130" height="70" rx="4" fill="#202020" stroke="#333" stroke-width="1" />
+					<text x="360" y="105" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">TRANSACTIONS</text>
+					<text x="360" y="132" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="url(#accent-grad)">$84.2K</text>
+
+					<rect x="490" y="85" width="145" height="70" rx="4" fill="#202020" stroke="#333" stroke-width="1" />
+					<text x="505" y="105" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">SYSTEM UPTIME</text>
+					<text x="505" y="132" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#FFF">99.98%</text>
+
+					<!-- Chart Area -->
+					<rect x="200" y="170" width="435" height="195" rx="4" fill="#1A1A1A" stroke="#2D2D2D" stroke-width="1" />
+					<text x="220" y="195" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#CCC">WORKFLOW THROUGHPUT &amp; LATENCY</text>
+
+					<!-- Chart Grid lines -->
+					<line x1="220" y1="230" x2="615" y2="230" stroke="#2B2B2B" stroke-width="1" stroke-dasharray="3 3" />
+					<line x1="220" y1="270" x2="615" y2="270" stroke="#2B2B2B" stroke-width="1" stroke-dasharray="3 3" />
+					<line x1="220" y1="310" x2="615" y2="310" stroke="#2B2B2B" stroke-width="1" stroke-dasharray="3 3" />
+
+					<!-- Wave Chart line -->
+					<path d="M 230 310 C 270 280, 310 290, 350 250 C 390 210, 430 260, 470 220 C 510 180, 550 230, 600 190" fill="none" stroke="url(#accent-grad)" stroke-width="3" />
+					<circle cx="600" cy="190" r="5" fill="#FFD500" stroke="#141414" stroke-width="2" />
+					<rect x="560" y="165" width="60" height="16" rx="2" fill="#FFD500" />
+					<text x="590" y="177" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#141414" text-anchor="middle">PEAK 2.4k/s</text>
+				</g>
+			)
+		}
+
+		{
+			variant === 'flow' && (
+				<g filter="url(#shadow)">
+					<!-- Automation Pipeline Canvas -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#FFFFFF" stroke={INK} stroke-width="1.5" />
+					
+					<!-- Header Bar -->
+					<rect x="40" y="30" width="620" height="38" rx="8" fill="#F1EFE9" stroke={INK} stroke-width="1.5" />
+					<rect x="40" y="58" width="620" height="10" fill="#F1EFE9" />
+					<text x="65" y="53" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill={INK}>AUTOMATION ENGINE / ACTIVE WORKFLOW</text>
+					<circle cx="630" cy="49" r="4" fill="#27C93F" />
+					<text x="618" y="53" font-family="'JetBrains Mono', monospace" font-size="8" fill="#555" text-anchor="end">RUNNING 24/7</text>
+
+					<!-- Pipeline Nodes Flow -->
+					<!-- Node 1: Webhook / Trigger -->
+					<rect x="70" y="110" width="140" height="90" rx="6" fill="#F8F8F6" stroke={INK} stroke-width="1.5" />
+					<rect x="70" y="110" width="140" height="24" rx="6" fill={INK} />
+					<text x="140" y="126" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">01. INTAKE TRIGGER</text>
+					<text x="85" y="152" font-family="'JetBrains Mono', monospace" font-size="8" fill="#444">WEBHOOK / API</text>
+					<text x="85" y="168" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#777">POST /events/order</text>
+					<rect x="85" y="180" width="70" height="10" rx="2" fill="url(#accent-grad)" />
+					<text x="120" y="188" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill={INK} text-anchor="middle">PAYLOAD OK</text>
+
+					<!-- Connector 1 -->
+					<path d="M 210 155 L 260 155" stroke={INK} stroke-width="2" stroke-dasharray="4 3" />
+					<polygon points="262,155 255,150 255,160" fill={INK} />
+
+					<!-- Node 2: Transform & Extract -->
+					<rect x="270" y="110" width="150" height="90" rx="6" fill="#F8F8F6" stroke={INK} stroke-width="1.5" />
+					<rect x="270" y="110" width="150" height="24" rx="6" fill="url(#accent-grad)" />
+					<text x="345" y="126" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill={INK} text-anchor="middle">02. DATA PARSER</text>
+					<text x="285" y="152" font-family="'JetBrains Mono', monospace" font-size="8" fill="#444">JSON EXTRACTION</text>
+					<text x="285" y="168" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#777">Cleanse &amp; Validate</text>
+					<rect x="285" y="180" width="80" height="10" rx="2" fill={INK} />
+					<text x="325" y="188" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="600" fill="#FFFFFF" text-anchor="middle">0 ERRORS</text>
+
+					<!-- Connector 2 -->
+					<path d="M 420 155 L 470 155" stroke={INK} stroke-width="2" stroke-dasharray="4 3" />
+					<polygon points="472,155 465,150 465,160" fill={INK} />
+
+					<!-- Node 3: Sync & Notify -->
+					<rect x="480" y="110" width="150" height="90" rx="6" fill="#F8F8F6" stroke={INK} stroke-width="1.5" />
+					<rect x="480" y="110" width="150" height="24" rx="6" fill={INK} />
+					<text x="555" y="126" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">03. DISPATCH &amp; CRM</text>
+					<text x="495" y="152" font-family="'JetBrains Mono', monospace" font-size="8" fill="#444">MULTI-APP SYNC</text>
+					<text x="495" y="168" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#777">PostgreSQL + Email</text>
+					<rect x="495" y="180" width="75" height="10" rx="2" fill="url(#accent-grad)" />
+					<text x="532" y="188" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill={INK} text-anchor="middle">SUCCESS 200</text>
+
+					<!-- Execution Log Window -->
+					<rect x="70" y="230" width="560" height="135" rx="6" fill="#141414" stroke={INK} stroke-width="1" />
+					<rect x="70" y="230" width="560" height="24" rx="6" fill="#222" />
+					<text x="90" y="246" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FFF">REAL-TIME EXECUTION LOG</text>
+					<circle cx="610" cy="242" r="3" fill="#27C93F" />
+
+					<text x="90" y="275" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">[19:14:02] <tspan fill="#FFF">JOB_TRIGGER:</tspan> Received external payload (1,248 bytes)</text>
+					<text x="90" y="295" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">[19:14:03] <tspan fill="url(#accent-grad)">DATA_TRANSFORM:</tspan> Normalized records across 4 entities</text>
+					<text x="90" y="315" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">[19:14:03] <tspan fill="#27C93F">DB_COMMIT:</tspan> PostgreSQL transaction synced in 42ms</text>
+					<text x="90" y="335" font-family="'JetBrains Mono', monospace" font-size="8" fill="#888">[19:14:04] <tspan fill="#27C93F">DISPATCH_COMPLETE:</tspan> Client notifications delivered</text>
+				</g>
+			)
+		}
+
+		{
+			variant === 'modules' && (
+				<g filter="url(#shadow)">
+					<!-- ERP & Business Management Diagram -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#141414" stroke="#333333" stroke-width="1.5" />
+					
+					<!-- Header -->
+					<rect x="40" y="30" width="620" height="38" rx="8" fill="#222" />
+					<text x="65" y="54" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#FFF">CENTRALIZED BUSINESS SYSTEM ARCHITECTURE</text>
+					
+					<!-- Core Central Hub -->
+					<rect x="240" y="90" width="220" height="70" rx="6" fill="url(#accent-grad)" stroke="#FFFFFF" stroke-width="1.5" />
+					<text x="350" y="122" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="#141414" text-anchor="middle">CORE SYSTEM ENGINE</text>
+					<text x="350" y="140" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="600" fill="#141414" text-anchor="middle">Single Source of Truth</text>
+
+					<!-- Connected Modules Grid -->
+					<!-- Module 1 -->
+					<rect x="70" y="200" width="125" height="85" rx="5" fill="#202020" stroke="#383838" stroke-width="1" />
+					<rect x="70" y="200" width="125" height="20" rx="5" fill="#2A2A2A" />
+					<text x="132" y="214" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#FFF" text-anchor="middle">ORDERS &amp; BILLING</text>
+					<text x="85" y="240" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#888">Invoices &amp; Gateways</text>
+					<rect x="85" y="255" width="55" height="12" rx="2" fill="url(#accent-grad)" />
+					<text x="112" y="264" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#141414" text-anchor="middle">AUTO-SYNC</text>
+
+					<!-- Module 2 -->
+					<rect x="210" y="200" width="125" height="85" rx="5" fill="#202020" stroke="#383838" stroke-width="1" />
+					<rect x="210" y="200" width="125" height="20" rx="5" fill="#2A2A2A" />
+					<text x="272" y="214" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#FFF" text-anchor="middle">INVENTORY / STOCK</text>
+					<text x="225" y="240" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#888">Real-time depletion</text>
+					<rect x="225" y="255" width="50" height="12" rx="2" fill="#444" />
+					<text x="250" y="264" font-family="'JetBrains Mono', monospace" font-size="7" fill="#FFF" text-anchor="middle">LIVE TRACK</text>
+
+					<!-- Module 3 -->
+					<rect x="350" y="200" width="125" height="85" rx="5" fill="#202020" stroke="#383838" stroke-width="1" />
+					<rect x="350" y="200" width="125" height="20" rx="5" fill="#2A2A2A" />
+					<text x="412" y="214" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#FFF" text-anchor="middle">CUSTOMER PORTAL</text>
+					<text x="365" y="240" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#888">Self-serve logins</text>
+					<rect x="365" y="255" width="55" height="12" rx="2" fill="url(#accent-grad)" />
+					<text x="392" y="264" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#141414" text-anchor="middle">SECURE 2FA</text>
+
+					<!-- Module 4 -->
+					<rect x="490" y="200" width="140" height="85" rx="5" fill="#202020" stroke="#383838" stroke-width="1" />
+					<rect x="490" y="200" width="140" height="20" rx="5" fill="#2A2A2A" />
+					<text x="560" y="214" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#FFF" text-anchor="middle">ANALYTICS &amp; BI</text>
+					<text x="505" y="240" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#888">Executive reporting</text>
+					<rect x="505" y="255" width="60" height="12" rx="2" fill="#444" />
+					<text x="535" y="264" font-family="'JetBrains Mono', monospace" font-size="7" fill="#FFF" text-anchor="middle">DASHBOARD</text>
+
+					<!-- Connection Lines -->
+					<path d="M 350 160 L 350 180 L 132 180 L 132 200" stroke="url(#accent-grad)" stroke-width="1.5" fill="none" />
+					<path d="M 350 160 L 350 180 L 272 180 L 272 200" stroke="url(#accent-grad)" stroke-width="1.5" fill="none" />
+					<path d="M 350 160 L 350 180 L 412 180 L 412 200" stroke="url(#accent-grad)" stroke-width="1.5" fill="none" />
+					<path d="M 350 160 L 350 180 L 560 180 L 560 200" stroke="url(#accent-grad)" stroke-width="1.5" fill="none" />
+
+					<!-- Status Banner Bottom -->
+					<rect x="70" y="315" width="560" height="45" rx="4" fill="#1C1C1C" stroke="#333" stroke-width="1" />
+					<text x="90" y="342" font-family="'JetBrains Mono', monospace" font-size="9" fill="#FFF">🔒 ZERO DATA DRIFT • ROLE-BASED ACCESS • FULL AUDIT TRAIL</text>
+				</g>
+			)
+		}
+
+		{
+			variant === 'lines' && (
+				<g filter="url(#shadow)">
+					<!-- Custom Software Architecture Blueprint -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#F8F8F6" stroke={INK} stroke-width="1.5" />
+					
+					<!-- Header -->
+					<rect x="40" y="30" width="620" height="38" rx="8" fill="#F1EFE9" stroke={INK} stroke-width="1.5" />
+					<text x="65" y="53" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill={INK}>BESPOKE SOFTWARE BLUEPRINT / ARCHITECTURE</text>
+
+					<!-- Grid Lines -->
+					{[80, 140, 200, 260, 320].map((y) => (
+						<line x1="60" y1={y} x2="640" y2={y} stroke={FAINT} stroke-width="0.75" />
+					))}
+					{[100, 200, 300, 400, 500, 600].map((x) => (
+						<line x1={x} y1={70} x2={x} y2={370} stroke={FAINT} stroke-width="0.75" />
+					))}
+
+					<!-- Architecture Blocks -->
+					<rect x="90" y="100" width="140" height="70" rx="4" fill={INK} />
+					<text x="160" y="130" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#FFF" text-anchor="middle">FRONTEND CLIENT</text>
+					<text x="160" y="148" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="url(#accent-grad)" text-anchor="middle">Astro / React / Web</text>
+
+					<rect x="280" y="100" width="140" height="70" rx="4" fill="url(#accent-grad)" stroke={INK} stroke-width="1" />
+					<text x="350" y="130" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#141414" text-anchor="middle">API GATEWAY</text>
+					<text x="350" y="148" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600" fill="#141414" text-anchor="middle">Node.js / Express</text>
+
+					<rect x="470" y="100" width="140" height="70" rx="4" fill={INK} />
+					<text x="540" y="130" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#FFF" text-anchor="middle">DATABASE &amp; CACHE</text>
+					<text x="540" y="148" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="url(#accent-grad)" text-anchor="middle">PostgreSQL + Redis</text>
+
+					<!-- Horizontal Connectors -->
+					<line x1="230" y1="135" x2="280" y2="135" stroke={INK} stroke-width="2" />
+					<line x1="420" y1="135" x2="470" y2="135" stroke={INK} stroke-width="2" />
+
+					<!-- Lower Service Row -->
+					<rect x="180" y="220" width="160" height="75" rx="4" fill="#FFFFFF" stroke={INK} stroke-width="1.5" />
+					<text x="260" y="248" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill={INK} text-anchor="middle">THIRD-PARTY INTEGRATION</text>
+					<text x="260" y="266" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#666" text-anchor="middle">Payment / ERP / CRM</text>
+
+					<rect x="380" y="220" width="160" height="75" rx="4" fill="#FFFFFF" stroke={INK} stroke-width="1.5" />
+					<text x="460" y="248" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill={INK} text-anchor="middle">WORKER &amp; CRON JOBS</text>
+					<text x="460" y="266" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#666" text-anchor="middle">Async Processing</text>
+
+					<!-- Connectors from Gateway -->
+					<path d="M 350 170 L 350 195 L 260 195 L 260 220" stroke={INK} stroke-width="1.5" fill="none" stroke-dasharray="4 3" />
+					<path d="M 350 170 L 350 195 L 460 195 L 460 220" stroke={INK} stroke-width="1.5" fill="none" stroke-dasharray="4 3" />
+
+					<rect x="70" y="325" width="560" height="35" rx="3" fill="#F1EFE9" stroke={FAINT} stroke-width="1" />
+					<text x="350" y="347" font-family="'JetBrains Mono', monospace" font-size="8.5" fill={INK} text-anchor="middle">PROPRIETARY CODEBASE • FULL IP OWNERSHIP • NO VENDOR LOCK-IN</text>
+				</g>
+			)
+		}
+
+		{
+			variant === 'sync' && (
+				<g filter="url(#shadow)">
+					<!-- Data & Lead Synchronization Visual -->
+					<rect x="40" y="30" width="620" height="360" rx="8" fill="#FFFFFF" stroke={INK} stroke-width="1.5" />
+					
+					<!-- Header -->
+					<rect x="40" y="30" width="620" height="38" rx="8" fill="#F1EFE9" stroke={INK} stroke-width="1.5" />
+					<text x="65" y="53" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill={INK}>DATA &amp; LEAD AUTOMATION PIPELINE</text>
+					
+					<!-- Left: Raw Input Stream -->
+					<rect x="70" y="90" width="180" height="200" rx="6" fill="#F8F8F6" stroke={INK} stroke-width="1" />
+					<rect x="70" y="90" width="180" height="26" rx="6" fill={INK} />
+					<text x="160" y="107" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FFF" text-anchor="middle">LEAD / DATA INTAKE</text>
+					
+					{[0, 1, 2, 3].map((i) => (
+						<g key={`dt${i}`}>
+							<rect x="85" y={130 + i * 36} width="150" height="24" rx="3" fill="#FFFFFF" stroke={FAINT} stroke-width="1" />
+							<circle cx="98" cy={142 + i * 36} r="3" fill={i % 2 === 0 ? ACCENT : INK} />
+							<rect x="110" y={138 + i * 36} width={i % 2 === 0 ? 80 : 95} height="7" rx="1" fill="#555" />
+						</g>
+					))}
+
+					<!-- Center Transformation Engine -->
+					<circle cx="350" cy="190" r="45" fill="url(#accent-grad)" stroke={INK} stroke-width="2" />
+					<text x="350" y="186" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#141414" text-anchor="middle">SYNC</text>
+					<text x="350" y="199" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600" fill="#141414" text-anchor="middle">ENGINE</text>
+
+					<!-- Curved Flow Arrows -->
+					<path d="M 250 190 L 305 190" stroke={INK} stroke-width="2" stroke-dasharray="4 3" />
+					<path d="M 395 190 L 450 190" stroke={INK} stroke-width="2" stroke-dasharray="4 3" />
+
+					<!-- Right: Synchronized Outputs -->
+					<rect x="450" y="90" width="180" height="200" rx="6" fill="#F8F8F6" stroke={INK} stroke-width="1" />
+					<rect x="450" y="90" width="180" height="26" rx="6" fill="url(#accent-grad)" />
+					<text x="540" y="107" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#141414" text-anchor="middle">DESTINATION PLATFORMS</text>
+
+					<g>
+						<rect x="465" y="130" width="150" height="24" rx="3" fill={INK} />
+						<text x="540" y="145" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600" fill="#FFF" text-anchor="middle">CRM &amp; PIPELINES (LIVE)</text>
+
+						<rect x="465" y="166" width="150" height="24" rx="3" fill="#FFFFFF" stroke={INK} stroke-width="1" />
+						<text x="540" y="181" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600" fill={INK} text-anchor="middle">AUTO-EMAIL DISPATCH</text>
+
+						<rect x="465" y="202" width="150" height="24" rx="3" fill="url(#accent-grad)" />
+						<text x="540" y="217" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#141414" text-anchor="middle">DATA WAREHOUSE</text>
+
+						<rect x="465" y="238" width="150" height="24" rx="3" fill="#FFFFFF" stroke={FAINT} stroke-width="1" />
+						<text x="540" y="253" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#666" text-anchor="middle">REPORT PACKAGES</text>
+					</g>
+
+					<!-- Bottom Footnote -->
+					<rect x="70" y="315" width="560" height="45" rx="4" fill="#F1EFE9" stroke={FAINT} stroke-width="1" />
+					<text x="350" y="342" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="600" fill={INK} text-anchor="middle">🔄 CONTINUOUS BI-DIRECTIONAL EXTRACTION • INSTANT NOTIFICATIONS</text>
+				</g>
+			)
+		}
+	</svg>
+</div>

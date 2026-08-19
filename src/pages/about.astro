@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import { team, principles, whyChooseUs, culture } from '../data/team';
+import CtaBanner from '../components/CtaBanner.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+
+<Base
+	title="About PromiseMe — Digital Solutions & Custom Software Architecture"
+	description="About PromiseMe: We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions. Requirement-first, custom-built, transparent, scalable."
+	path="/about"
+	nav="about"
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">03 / ABOUT</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">REQUIREMENT-FIRST ENGINEERING</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			About<br />
+			<span class="outline">PromiseMe.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>
+			We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions.
+		</p>
+		<div class="page-hero__meta" data-reveal>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">ONE TEAM FOR COMPLETE DIGITAL SOLUTIONS</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">REMOTE-FIRST / GLOBAL</span>
+		</div>
+	</section>
+
+	<!-- MANIFESTO -->
+	<section class="manifesto" aria-labelledby="manifesto-title">
+		<div>
+			<span class="eyebrow">01 / PHILOSOPHY</span>
+			<h2 id="manifesto-title" style="font-size:var(--fs-h3);text-transform:uppercase;margin-top:1.2rem" class="sr-only">Manifesto</h2>
+			<p class="manifesto__text" style="margin-top:2.4rem" data-reveal>
+				A good digital solution isn't simply about having more features. <span class="m">It should make the business faster, simpler, and more efficient.</span> Technology that solves a business problem — not technology for the sake of technology.
+			</p>
+		</div>
+		<div class="manifesto__ref" data-reveal>
+			<div>01 / THINK IT</div>
+			<div>02 / BUILD IT</div>
+			<div>03 / AUTOMATE IT</div>
+		</div>
+	</section>
+
+	<!-- APPROACH / PRINCIPLES -->
+	<section class="section section--no-rule" id="approach" aria-labelledby="approach-title">
+		<div class="section__head">
+			<span class="section__head-num">02 / CORE PRINCIPLES</span>
+			<h2 class="section__head-title" id="approach-title" data-reveal>How We Think About Every Build</h2>
+			<span class="section__head-note" data-reveal>
+				Five foundational pillars guiding every project from requirement to reality.
+			</span>
+		</div>
+		<div class="gut">
+			{
+				principles.map((p) => (
+					<div class="principle card" data-reveal style="margin-bottom:1.5rem;padding:2rem">
+						<span class="principle__num">{p.number}</span>
+						<h3 class="principle__title">{p.title}</h3>
+						<p class="principle__body">{p.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- WHY CLIENTS CHOOSE US -->
+	<section class="section section--paper-deep" id="why-us" aria-labelledby="why-title">
+		<div class="section__head">
+			<span class="section__head-num">03 / ADVANTAGE</span>
+			<h2 class="section__head-title" id="why-title" data-reveal>Why Clients Choose Us</h2>
+			<span class="section__head-note" data-reveal>
+				Your requirement becomes our development roadmap.
+			</span>
+		</div>
+		<div class="gut" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px), 1fr));gap:1.8rem">
+			{
+				whyChooseUs.map((w) => (
+					<div class="principle card" data-reveal style="padding:2rem">
+						<div style="width:48px;height:48px;background:rgba(255,213,0,0.18);border:1px solid var(--accent);border-radius:6px;display:grid;place-items:center;color:var(--ink);margin-bottom:1.2rem">
+							<Icon name={w.icon} size={24} />
+						</div>
+						<h3 class="principle__title">{w.title}</h3>
+						<p class="principle__body">{w.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- TEAM -->
+	<section class="section" id="team" aria-labelledby="team-title">
+		<div class="section__head">
+			<span class="section__head-num">04 / LEADERSHIP</span>
+			<h2 class="section__head-title" id="team-title" data-reveal>Direct Builder Contact</h2>
+			<span class="section__head-note" data-reveal>
+				Work directly with the solutions architect. Direct communication means zero middlemen and faster delivery.
+			</span>
+		</div>
+		<div class="gut">
+			{
+				team.map((m) => (
+					<article class="team-row card" data-reveal style="padding:clamp(1.5rem, 3vw, 2.5rem)">
+						<div class="team-row__avatar">
+							<span style="font-size:1.8rem;background:var(--accent);color:var(--accent-ink);font-weight:800;width:100%;height:100%;display:grid;place-items:center">VT</span>
+						</div>
+						<div>
+							<span class="team-row__id">LEAD / ARCHITECT</span>
+							<h3 class="team-row__name">{m.name}</h3>
+							<p class="team-row__role">{m.role}</p>
+						</div>
+						<div>
+							<p class="team-row__bio">{m.bio}</p>
+							<ul class="team-row__xp" style="margin-top:1rem">
+								{m.expertise.map((e) => (
+									<li>{e}</li>
+								))}
+							</ul>
+							<div style="margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:1rem">
+								<a href={`mailto:${site.email}`} class="textlink">
+									{site.email} <span class="arr">→</span>
+								</a>
+								<a href={`tel:${site.phone}`} class="textlink">
+									{site.phone} <span class="arr">→</span>
+								</a>
+							</div>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- CULTURE -->
+	<section class="section section--paper-deep" id="culture" aria-labelledby="culture-title">
+		<div class="section__head">
+			<span class="section__head-num">05 / CULTURE</span>
+			<h2 class="section__head-title" id="culture-title" data-reveal>How Work Gets Done</h2>
+			<span class="section__head-note" data-reveal>
+				The habits behind fast, reliable execution.
+			</span>
+		</div>
+		<div class="gut" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px), 1fr));gap:2.5rem">
+			{
+				culture.map((c, i) => (
+					<div style="border-top:2px solid var(--ink);padding-top:1.2rem;display:grid;gap:0.8rem">
+						<h3 style="font-size:var(--fs-h3);text-transform:uppercase">
+							<span class="mono" style="color:var(--ink-faint);font-size:0.75rem;display:block;margin-bottom:0.4rem">0{i + 1}</span>
+							{c.title}
+						</h3>
+						<p style="color:var(--ink-soft);line-height:1.6">{c.text}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<CtaBanner title="Have an idea or a problem" em="to solve?" body="Whether you need a new website, a custom business application, an automation system, or a completely customized digital solution — let's discuss your requirement." />
+</Base>

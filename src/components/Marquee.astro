@@ -1,0 +1,20 @@
+---
+const items = [
+	'THINK IT',
+	'BUILD IT',
+	'AUTOMATE IT',
+	'Websites',
+	'Web Applications',
+	'Automation',
+	'Custom Software',
+	'PromiseMe',
+];
+---
+<div class="marquee" aria-hidden="true">
+	<div class="marquee__track">
+		<span>{items.join(' • ')}</span>
+		<span> • </span>
+		<span>{items.join(' • ')}</span>
+		<span> • </span>
+	</div>
+</div>

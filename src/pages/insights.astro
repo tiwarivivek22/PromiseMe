@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import { insights } from '../data/insights';
+import { site } from '../data/site';
+
+const articleSchema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		itemListElement: insights.map((a, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			item: {
+				'@type': 'Article',
+				headline: a.title,
+				description: a.excerpt,
+				category: a.category,
+				url: `${site.domain}/insights/${a.slug}`,
+				author: { '@id': `${site.domain}/#organization` },
+			},
+		})),
+	},
+];
+---
+
+<Base
+	title="Insights — Systems, Automation and Software | PromiseMe"
+	description="Articles and technical perspectives on digital solutions, workflow automation, custom software, and building tools around real business requirements."
+	path="/insights"
+	nav="insights"
+	schema={articleSchema as object[]}
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">05 / PERSPECTIVES</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">SYSTEMS · AUTOMATION · SOFTWARE</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			<span class="outline">Insights.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>
+			Thinking about digital systems, automation, and software architecture. Practical perspectives from building real products.
+		</p>
+		<div class="page-hero__meta" data-reveal>
+			{
+				['Systems Thinking', 'Automation', 'Web Applications', 'Development', 'Custom Software'].map((c) => (
+					<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">{c}</span>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- INDEX -->
+	<section class="section section--no-rule" aria-label="Article index">
+		<div class="gut insight-list">
+			{
+				insights.map((a, i) => (
+					<article class={`insight-card ${i === 0 ? 'insight-card--wide' : ''}`} data-reveal style={i === 0 ? 'grid-column: span 7' : 'grid-column: span 5'}>
+						<a href={`/insights/${a.slug}`} style="display:grid;gap:1.4rem">
+							<span class="insight-card__cat">
+								<span class="cat">{a.category}</span>
+								<span>{i + 1 < 10 ? `0${i + 1}` : i + 1}</span>
+							</span>
+							<h2 class="insight-card__title">{a.title}</h2>
+							<p class="insight-card__ex">{a.excerpt}</p>
+							<span class="insight-card__meta">
+								<span>{a.date}</span>
+								<span>{a.readingTime}</span>
+								<span>Read →</span>
+							</span>
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- NEXT STEP -->
+	<section class="section section--no-rule">
+		<div class="gut" style="border-top:1px solid var(--rule-strong)">
+			<div style="padding:clamp(2.5rem,5vw,4rem) 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.8fr);gap:3rem;align-items:center">
+				<h2 style="font-size:var(--fs-h2);text-transform:uppercase">Ready to turn an idea into reality?</h2>
+				<div style="display:grid;gap:1.2rem;justify-items:start">
+					<p style="color:var(--ink-soft);max-width:40ch">
+						Let's discuss what you want to achieve. We'll help you figure out what needs to be built.
+					</p>
+					<a class="btn btn--ghost" href="/contact">
+						Discuss Requirement <span class="btn-arrow">→</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>

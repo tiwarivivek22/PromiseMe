@@ -1,0 +1,67 @@
+---
+import { site } from '../data/site';
+
+const needs = ['Website', 'Application', 'Software', 'Automation', 'Integration', 'Custom Solution', 'Other'];
+---
+
+<form class="form js-form" data-form data-email={site.email} action="/contact" method="POST">
+	<div class="form__field">
+		<label for="f-name">Name</label>
+		<input id="f-name" name="name" type="text" autocomplete="name" required />
+	</div>
+	<div class="form__field">
+		<label for="f-company">Company</label>
+		<input id="f-company" name="company" type="text" autocomplete="organization" />
+	</div>
+	<div class="form__field">
+		<label for="f-email">Email</label>
+		<input id="f-email" name="email" type="email" autocomplete="email" required />
+	</div>
+	<div class="form__field">
+		<label for="f-phone">Phone / WhatsApp</label>
+		<input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+	</div>
+	<div class="form__field form__field--full">
+		<label for="f-need">What do you need?</label>
+		<select id="f-need" name="need" required>
+			<option value="">Select a category</option>
+			{needs.map((n) => (
+				<option value={n}>{n}</option>
+			))}
+		</select>
+	</div>
+	<div class="form__field form__field--full">
+		<label for="f-message">Message</label>
+		<textarea id="f-message" name="message" rows={5} required placeholder="What workflow or problem should we look at?"></textarea>
+	</div>
+	<p class="form__note">
+		<span>Response within {site.responseTimeBar}</span>
+		<span>· No newsletters. No sales automation.</span>
+	</p>
+	<button class="btn form__submit" type="submit">
+		Send Inquiry <span class="btn-arrow">→</span>
+	</button>
+</form>
+
+<script>
+	const form = document.querySelector('[data-form]');
+	if (form) {
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const d = new FormData(form as HTMLFormElement);
+			const email = (form as HTMLElement).getAttribute('data-email') ?? 'hello@REALCONTENTNEEDED.com';
+			const lines = [
+				`Name: ${d.get('name')}`,
+				`Company: ${d.get('company') || '—'}`,
+				`Email: ${d.get('email')}`,
+				`Phone/WhatsApp: ${d.get('phone') || '—'}`,
+				`Need: ${d.get('need')}`,
+				'',
+				`${d.get('message')}`,
+			];
+			const subject = encodeURIComponent(`Project inquiry — ${d.get('need')} — ${d.get('company') || d.get('name')}`);
+			const body = encodeURIComponent(lines.join('\n'));
+			window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+		});
+	}
+</script>

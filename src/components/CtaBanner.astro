@@ -1,0 +1,28 @@
+---
+interface Props {
+	title: string;
+	em: string; // outlined word
+	body?: string;
+	cta?: boolean;
+}
+const { title, em, body, cta = true } = Astro.props;
+---
+
+<section class="cta" id="contact-cta">
+	<h2 class="cta__title" data-reveal>
+		{title} <em>{em}</em>
+	</h2>
+	<div class="cta__side" data-reveal>
+		{body && <p>{body}</p>}
+		{cta && (
+			<a class="btn btn--paper" href="/contact">
+				Let's discuss your project <span class="btn-arrow">→</span>
+			</a>
+		)}
+		<div class="cta__chips">
+			<span>Honest scoping</span>
+			<span>Senior team</span>
+			<span>Weekly visibility</span>
+		</div>
+	</div>
+</section>

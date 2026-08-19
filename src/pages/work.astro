@@ -1,0 +1,142 @@
+---
+import Base from '../layouts/Base.astro';
+import BrowserFrame from '../components/BrowserFrame.astro';
+import { projects, featuredProject, nonFeatured } from '../data/projects';
+import { site } from '../data/site';
+
+const featured = featuredProject(projects);
+const rest = nonFeatured(projects);
+
+const caseSchema = featured
+	? [
+			{
+				'@context': 'https://schema.org',
+				'@type': 'CreativeWork',
+				name: `${featured.client} — Digital Solution`,
+				abstract: featured.summary,
+				about: featured.type,
+				creator: { '@id': `${site.domain}/#organization` },
+				url: `${site.domain}/work#featured`,
+			},
+	  ]
+	: [];
+---
+
+<Base
+	title="Selected Work & Systems — PromiseMe"
+	description="Case studies of websites, web applications, automation systems, and custom software designed and built by PromiseMe."
+	path="/work"
+	nav="work"
+	schema={caseSchema as object[]}
+	bodyClass="page-work"
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">04 / PORTFOLIO</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">TURNING IDEAS INTO WORKING PRODUCTS</span>
+		</div>
+		<h1 class="page-hero__h1" data-reveal>
+			Selected<br />
+			<span class="outline">Work.</span>
+		</h1>
+		<p class="page-hero__intro" data-reveal>
+			Real projects. Reliable digital systems. Measurable business results.
+		</p>
+		<div class="page-hero__meta" data-reveal>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">01 — Websites &amp; Platforms</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">02 — Web Applications</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.14em;color:var(--ink-faint)">03 — Automation &amp; Custom Software</span>
+		</div>
+	</section>
+
+	<!-- FEATURED PROJECT -->
+	<section class="section" id="featured" aria-labelledby="featured-title">
+		<div class="section__head">
+			<span class="section__head-num">FEATURED</span>
+			<h2 class="section__head-title" id="featured-title" data-reveal>
+				{featured.type}
+			</h2>
+			<span class="section__head-note" data-reveal>
+				{featured.client} · {featured.sector}
+			</span>
+		</div>
+
+		<div class="case-hero gut">
+			<div class="case-hero__meta" data-reveal>
+				<span class="case-hero__num">PROJECT / {featured.type}</span>
+				<h3 class="case-hero__h2">{featured.summary}</h3>
+				<div class="case-hero__body">
+					<p>{featured.challenge}</p>
+					<div class="case-hero__tags">
+						{featured.tags.map((t) => (
+							<span>{t}</span>
+						))}
+					</div>
+				</div>
+				<div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.6rem">
+					<a class="btn btn--ghost" href="/contact">
+						Discuss Similar Project <span class="btn-arrow">→</span>
+					</a>
+					<a class="textlink" href={`/work/case-studies/${featured.slug}`}>
+						View Case Study <span class="arr">→</span>
+					</a>
+				</div>
+			</div>
+			<div class="case-hero__vis" data-reveal="right">
+				<BrowserFrame
+					variant={featured.diagram}
+					url={featured.clientUrl || 'promiseme.dev/demo'}
+					note="Interactive project preview"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- CASE STUDY GALLERY (editorial rows) -->
+	<section class="section section--no-rule" id="case-studies" aria-labelledby="cases-title">
+		<div class="section__head">
+			<span class="section__head-num">ALL / CASE STUDIES</span>
+			<h2 class="section__head-title" id="cases-title" data-reveal>More Systems We've Built</h2>
+			<span class="section__head-note" data-reveal>
+				Websites, applications, automations, and custom software systems designed around specific operational needs.
+			</span>
+		</div>
+
+		<div class="case-list">
+			{
+				rest.map((p, i) => (
+					<article class="case-row case-row--flip" data-reveal>
+						<div class="case-row__meta wire">
+							<div class="case-row__label">
+								<span>{p.type} · {p.sector}</span>
+								<span>0{i + 2}</span>
+							</div>
+							<h3 class="case-row__client">{p.client}</h3>
+							<p class="case-row__type">{p.summary}</p>
+							<a class="textlink case-row__cta" href={`/work/case-studies/${p.slug}`}>
+								View case study <span class="arr">→</span>
+							</a>
+						</div>
+						<div class="case-row__vis">
+							<BrowserFrame variant={p.diagram} url={p.clientUrl || 'promiseme.dev/preview'} note="System overview" />
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- NEXT STEP -->
+	<section class="section" style="border-top:0">
+		<div class="cta" style="margin-inline:var(--gutter)">
+			<h2 class="cta__title">Your project <em>next.</em></h2>
+			<div class="cta__side">
+				<p>Tell us what you want to achieve. We'll help you figure out what needs to be built.</p>
+				<a class="btn btn--paper" href="/contact">
+					Start a Project <span class="btn-arrow">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+</Base>

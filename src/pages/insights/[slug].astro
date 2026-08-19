@@ -1,0 +1,116 @@
+---
+import Base from '../../layouts/Base.astro';
+import { insights } from '../../data/insights';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+	return insights.map((a) => ({
+		params: { slug: a.slug },
+		props: { article: a },
+	}));
+}
+
+const { article } = Astro.props;
+const related = insights.find((a) => a.slug === article.related) ?? insights[0];
+const relatedService = services.find((s) => s.id === article.related);
+
+const articleSchema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Article',
+		headline: article.title,
+		description: article.excerpt,
+		datePublished: article.date,
+		dateModified: article.date,
+		articleSection: article.category,
+		keywords: article.tags.join(', '),
+		inLanguage: 'en',
+		author: { '@id': `${site.domain}/#organization` },
+		publisher: { '@id': `${site.domain}/#organization` },
+		url: `${site.domain}/insights/${article.slug}`,
+		mainEntityOfPage: `${site.domain}/insights/${article.slug}`,
+	},
+];
+---
+
+<Base
+	title={`${article.title} — ${article.category} | PromiseMe Insights`}
+	description={article.excerpt}
+	path={`/insights/${article.slug}`}
+	nav="insights"
+	ogType="article"
+	schema={articleSchema as object[]}
+>
+	<!-- HERO -->
+	<section class="page-hero">
+		<div class="page-hero__kicker" data-reveal>
+			<span class="eyebrow">{article.category}</span>
+			<span class="mono" style="font-size:var(--fs-meta);letter-spacing:0.16em;color:var(--ink-faint)">
+				{article.date} · {article.readingTime}
+			</span>
+		</div>
+		<h1 class="article__title" data-reveal>{article.title}</h1>
+		<p class="article__lede" data-reveal>{article.excerpt}</p>
+	</section>
+
+	<!-- BODY -->
+	<section class="section section--no-rule" aria-label="Article body">
+		<div class="article">
+			<aside class="article__rail" data-reveal>
+				<span class="meta">Filed under</span>
+				<span class="mono" style="font-size:var(--fs-label);letter-spacing:0.1em">{article.category}</span>
+				<span class="meta" style="margin-top:1rem">Tags</span>
+				<div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+					{article.tags.map((t) => (
+						<span style="font-family:var(--mono);font-size:var(--fs-meta);letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--rule-strong);padding:0.3em 0.7em">{t}</span>
+					))}
+				</div>
+				{
+					relatedService && (
+						<div style="margin-top:2rem;border-top:1px solid var(--rule);padding-top:1.2rem;display:grid;gap:0.8rem">
+							<span class="meta">Related service</span>
+							<a class="textlink" href={`/services#${relatedService.id}`}>
+								{relatedService.title} <span class="arr">→</span>
+							</a>
+						</div>
+					)
+				}
+			</aside>
+
+			<div class="article__body" data-reveal>
+				{
+					article.body.map((block, i) => {
+						if (block.type === 'h2') {
+							return <h2 key={i}>{block.text}</h2>;
+						}
+						if (block.type === 'ul') {
+							return (
+								<ul key={i}>
+									{block.items?.map((it, j) => <li key={j}>{it}</li>)}
+								</ul>
+							);
+						}
+						return <p key={i}>{block.text}</p>;
+					})
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- RELATED -->
+	<section class="section section--paper-deep" aria-label="Related reading">
+		<div class="gut" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3rem;align-items:center">
+			<div>
+				<span class="section__head-num">READ NEXT</span>
+				<h2 style="font-size:var(--fs-h3);text-transform:uppercase;margin-top:1rem;max-width:18ch">{related.title}</h2>
+			</div>
+			<div style="display:grid;gap:1.4rem;justify-items:start">
+				<p style="color:var(--ink-soft);max-width:44ch">{related.excerpt}</p>
+				<a class="btn btn--ghost" href={`/insights/${related.slug}`}>
+					Read article <span class="btn-arrow">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+</Base>
