@@ -11,7 +11,7 @@ export const site = {
 	legalName: 'PromiseMe — Digital Solutions',
 
 	// Domain used for canonical links, sitemap + robots.txt.
-	domain: 'https://promiseme.dev',
+	domain: 'https://tiwarivivek22.github.io/PromiseMe',
 
 	// Visible on the homepage hero and in the footer.
 	tagline: 'We Build What Matters.',

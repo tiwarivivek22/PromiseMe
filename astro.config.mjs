@@ -3,10 +3,12 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 
-const SITE_URL = 'https://promiseme.dev';
+const SITE_URL = 'https://tiwarivivek22.github.io';
+const BASE_PATH = '/PromiseMe';
 
 export default defineConfig({
   site: SITE_URL,
+  base: BASE_PATH,
   vite: {
     plugins: [tailwindcss()],
   },
@@ -16,13 +18,13 @@ export default defineConfig({
         return {
           ...item,
           changefreq: 'weekly',
-          priority: item.url === SITE_URL ? 1.0 : 0.8,
+          priority: item.url === `${SITE_URL}${BASE_PATH}/` ? 1.0 : 0.8,
         };
       },
     }),
     robotsTxt({
-      host: 'promiseme.dev',
-      sitemap: `${SITE_URL}/sitemap-index.xml`,
+      host: 'tiwarivivek22.github.io',
+      sitemap: `${SITE_URL}${BASE_PATH}/sitemap-index.xml`,
     }),
   ],
   compressHTML: true,

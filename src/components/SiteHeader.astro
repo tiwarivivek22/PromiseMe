@@ -7,9 +7,11 @@ interface Props {
 }
 const { nav = 'home' } = Astro.props;
 
-const item = (label: string, href: string, key: string, num: string) => ({
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const item = (label: string, path: string, key: string, num: string) => ({
 	label,
-	href,
+	href: `${base}${path}`,
 	key,
 	num,
 });
@@ -22,25 +24,25 @@ const navItems = [
 	item('Contact', '/contact', 'contact', '05'),
 ];
 
-const servicesSub = services.map((s) => ({ label: s.title, href: `/services#${s.id}`, num: s.number }));
+const servicesSub = services.map((s) => ({ label: s.title, href: `${base}/services#${s.id}`, num: s.number }));
 const aboutSub = [
-	{ label: 'Principles', href: '/about#approach', num: 'P' },
-	{ label: 'Why Choose Us', href: '/about#why-us', num: 'W' },
-	{ label: 'Team', href: '/about#team', num: 'T' },
+	{ label: 'Principles', href: `${base}/about#approach`, num: 'P' },
+	{ label: 'Why Choose Us', href: `${base}/about#why-us`, num: 'W' },
+	{ label: 'Team', href: `${base}/about#team`, num: 'T' },
 ];
 ---
 
 <header class="site-header">
 	<div class="site-header__inner">
-		<a class="brand" href="/" aria-label={`${site.name} — Home`}>
-			<img class="brand__logo" src="/logo.png" alt="PromiseMe Logo" width="30" height="30" />
+		<a class="brand" href={base || '/'} aria-label={`${site.name} — Home`}>
+			<img class="brand__logo" src={`${base}/logo.png`} alt="PromiseMe Logo" width="30" height="30" />
 			<span>{site.name}</span>
 			<span class="brand__tag" aria-hidden="true">/WE BUILD WHAT MATTERS</span>
 		</a>
 
 		<nav class="site-nav" aria-label="Primary">
 			<ul class="site-nav__list">
-				<li class="site-nav__item"><a class="site-nav__link" href="/" aria-current={nav === 'home' ? 'page' : undefined}>Home</a></li>
+				<li class="site-nav__item"><a class="site-nav__link" href={base || '/'} aria-current={nav === 'home' ? 'page' : undefined}>Home</a></li>
 				{
 					navItems.map((it) => (
 						<li class="site-nav__item" data-dropdown={it.key}>
@@ -69,7 +71,7 @@ const aboutSub = [
 					))
 				}
 				<li class="site-nav__item">
-					<a class="btn site-nav__cta" href="/contact">Discuss Requirement</a>
+					<a class="btn site-nav__cta" href={`${base}/contact`}>Discuss Requirement</a>
 				</li>
 			</ul>
 		</nav>
@@ -82,7 +84,7 @@ const aboutSub = [
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
 	<nav aria-label="Mobile">
-		<a class="mobile-menu__link" href="/"><span class="nth">00</span> Home</a>
+		<a class="mobile-menu__link" href={base || '/'}><span class="nth">00</span> Home</a>
 		{
 			navItems.map((it) => (
 				<div>
@@ -100,5 +102,5 @@ const aboutSub = [
 			))
 		}
 	</nav>
-	<a class="btn" href="/contact" style="margin-top:2rem">Discuss Requirement</a>
+	<a class="btn" href={`${base}/contact`} style="margin-top:2rem">Discuss Requirement</a>
 </div>

@@ -1,20 +1,22 @@
 ---
 import { site } from '../data/site';
 import { services } from '../data/services';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <footer class="site-footer">
 	<div class="site-footer__top">
 		<div class="site-footer__col site-footer__col--brand">
-			<a class="site-footer__brand" href="/" aria-label={`${site.name} — Home`}>
-				<img class="site-footer__logo" src="/logo.png" alt="PromiseMe Logo" width="44" height="44" loading="lazy" />
+			<a class="site-footer__brand" href={base || '/'} aria-label={`${site.name} — Home`}>
+				<img class="site-footer__logo" src={`${base}/logo.png`} alt="PromiseMe Logo" width="44" height="44" loading="lazy" />
 				<span class="site-footer__word">
 					{site.name}<em>.</em>
 				</span>
 			</a>
 			<p class="site-footer__tag">{site.tagline}</p>
 			<div class="site-footer__cta">
-				<a class="btn btn--paper" href="/contact">Discuss Your Requirement <span class="btn-arrow">→</span></a>
+				<a class="btn btn--paper" href={`${base}/contact`}>Discuss Your Requirement <span class="btn-arrow">→</span></a>
 			</div>
 			<p class="mono site-footer__philosophy">
 				{site.philosophy}
@@ -24,13 +26,13 @@ import { services } from '../data/services';
 		<nav aria-label="Footer — Navigation">
 			<h2 class="site-footer__h">Navigation</h2>
 			<div class="site-footer__nav">
-				<a href="/">Home</a>
-				<a href="/services">Services</a>
-				<a href="/process">Process</a>
-				<a href="/about">About</a>
-				<a href="/work">Work</a>
-				<a href="/insights">Insights</a>
-				<a href="/contact">Contact</a>
+				<a href={base || '/'}>Home</a>
+				<a href={`${base}/services`}>Services</a>
+				<a href={`${base}/process`}>Process</a>
+				<a href={`${base}/about`}>About</a>
+				<a href={`${base}/work`}>Work</a>
+				<a href={`${base}/insights`}>Insights</a>
+				<a href={`${base}/contact`}>Contact</a>
 			</div>
 		</nav>
 
@@ -38,7 +40,7 @@ import { services } from '../data/services';
 			<h2 class="site-footer__h">Solutions</h2>
 			<div class="site-footer__nav">
 				{services.map((s) => (
-					<a href={`/services#${s.id}`}>{s.title}</a>
+					<a href={`${base}/services#${s.id}`}>{s.title}</a>
 				))}
 			</div>
 		</nav>
@@ -60,7 +62,7 @@ import { services } from '../data/services';
 
 	<div class="site-footer__bot">
 		<span>© {new Date().getFullYear()} {site.legalName} · All rights reserved</span>
-		<span><a href="/sitemap-index.xml">Sitemap</a> · <a href="/robots.txt">Robots</a> · <a href="/contact">Privacy</a></span>
+		<span><a href={`${base}/sitemap-index.xml`}>Sitemap</a> · <a href={`${base}/robots.txt`}>Robots</a> · <a href={`${base}/contact`}>Privacy</a></span>
 		<span>Think It. Build It. Automate It.</span>
 	</div>
 </footer>
