@@ -4,15 +4,17 @@ import HeroLines from '../components/HeroLines.astro';
 import HeroVisual from '../components/HeroVisual.astro';
 import Marquee from '../components/Marquee.astro';
 import ContactForm from '../components/ContactForm.astro';
+import BrowserFrame from '../components/BrowserFrame.astro';
 import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 import { services, businessSolutions } from '../data/services';
 import { process } from '../data/process';
+import { projects } from '../data/projects';
 import { principles, whyChooseUs } from '../data/team';
 ---
 
 <Base
-	title="PromiseMe — Digital Solutions That Turn Ideas Into Working Products"
+	title="PromiseMe — We Build What Matters"
 	description="We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions. Websites, web applications, automation, and custom software."
 	path="/"
 	nav="home"
@@ -271,6 +273,71 @@ import { principles, whyChooseUs } from '../data/team';
 						</div>
 					))
 				}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 04 / SELECTED WORK & WORKING SYSTEMS
+	============================================================ -->
+	<section class="section" id="work" aria-labelledby="work-h">
+		<div class="section__head">
+			<span class="section__head-num">04 / RECENT WORK</span>
+			<h2 class="section__head-title" id="work-h" data-reveal>
+				Selected Systems & <span class="outline">Products Built</span>
+			</h2>
+			<span class="section__head-note" data-reveal>
+				From high-converting websites and cloud SaaS dashboards to automated integration pipelines and custom ERP suites.
+			</span>
+		</div>
+
+		<div class="gut">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 520px), 1fr));gap:2rem">
+				{
+					projects.map((p, idx) => (
+						<article class="card" data-reveal style="padding:0;overflow:hidden;display:flex;flex-direction:column;border:2px solid var(--ink);box-shadow:4px 4px 0px var(--ink)">
+							<div style="padding:1.4rem 1.6rem 1rem;background:var(--paper);border-bottom:1px solid var(--rule-strong)">
+								<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+									<span class="mono" style="font-size:0.75rem;background:var(--accent);color:#141414;padding:0.2rem 0.6rem;font-weight:700;border-radius:3px">
+										{p.type}
+									</span>
+									<span class="mono" style="font-size:var(--fs-meta);color:var(--ink-faint);font-weight:600">0{idx + 1}</span>
+								</div>
+								<h3 style="font-size:clamp(1.2rem, 1.8vw, 1.45rem);text-transform:uppercase;margin-bottom:0.4rem;line-height:1.2">{p.client}</h3>
+								<p style="color:var(--ink-soft);font-size:0.9rem;line-height:1.5">{p.summary}</p>
+							</div>
+
+							<div style="background:#0e0e0e;flex-grow:1;display:flex;align-items:center;overflow:hidden">
+								<BrowserFrame
+									variant={p.diagram}
+									url={p.clientUrl || 'promiseme.dev/preview'}
+									image={p.image}
+									alt={`${p.client} — ${p.type}`}
+									note="Live system preview"
+								/>
+							</div>
+
+							<div style="padding:1rem 1.6rem;background:var(--paper-deep);border-top:1px solid var(--rule-strong);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.8rem">
+								<div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+									{p.tags.slice(0, 3).map((t) => (
+										<span class="mono" style="font-size:0.72rem;background:#ffffff;border:1px solid var(--rule-strong);padding:0.2rem 0.5rem;border-radius:3px">
+											{t}
+										</span>
+									))}
+								</div>
+								<a class="textlink" href={`/work/case-studies/${p.slug}`} style="font-weight:700">
+									View Case Study <span class="arr">→</span>
+								</a>
+							</div>
+						</article>
+					))
+				}
+			</div>
+
+			<div style="margin-top:2.5rem;text-align:center" data-reveal>
+				<a class="btn" href="/work">
+					View All Case Studies & Systems <span class="btn-arrow">→</span>
+				</a>
 			</div>
 		</div>
 	</section>

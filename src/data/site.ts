@@ -14,7 +14,7 @@ export const site = {
 	domain: 'https://promiseme.dev',
 
 	// Visible on the homepage hero and in the footer.
-	tagline: 'Digital Solutions That Turn Ideas Into Working Products',
+	tagline: 'We Build What Matters.',
 	philosophy: 'THINK IT. BUILD IT. AUTOMATE IT.',
 	description:
 		'We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions. From a simple business website to a complete web application or custom automation system, we handle the process from planning to development and deployment.',

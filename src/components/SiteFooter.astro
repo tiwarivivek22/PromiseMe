@@ -5,15 +5,18 @@ import { services } from '../data/services';
 
 <footer class="site-footer">
 	<div class="site-footer__top">
-		<div>
-			<div class="site-footer__word">
-				{site.name}<em>.</em>
-			</div>
+		<div class="site-footer__col site-footer__col--brand">
+			<a class="site-footer__brand" href="/" aria-label={`${site.name} — Home`}>
+				<img class="site-footer__logo" src="/logo.png" alt="PromiseMe Logo" width="44" height="44" loading="lazy" />
+				<span class="site-footer__word">
+					{site.name}<em>.</em>
+				</span>
+			</a>
 			<p class="site-footer__tag">{site.tagline}</p>
 			<div class="site-footer__cta">
 				<a class="btn btn--paper" href="/contact">Discuss Your Requirement <span class="btn-arrow">→</span></a>
 			</div>
-			<p class="mono" style="margin-top:1.4rem;font-size:var(--fs-meta);letter-spacing:0.12em;color:rgba(248,248,246,0.6)">
+			<p class="mono site-footer__philosophy">
 				{site.philosophy}
 			</p>
 		</div>

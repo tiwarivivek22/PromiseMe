@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 
@@ -6,6 +7,9 @@ const SITE_URL = 'https://promiseme.dev';
 
 export default defineConfig({
   site: SITE_URL,
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     sitemap({
       serialize(item) {

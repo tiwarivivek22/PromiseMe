@@ -87,6 +87,8 @@ const caseSchema = featured
 				<BrowserFrame
 					variant={featured.diagram}
 					url={featured.clientUrl || 'promiseme.dev/demo'}
+					image={featured.image}
+					alt={`${featured.client} — ${featured.type}`}
 					note="Interactive project preview"
 				/>
 			</div>
@@ -119,7 +121,13 @@ const caseSchema = featured
 							</a>
 						</div>
 						<div class="case-row__vis">
-							<BrowserFrame variant={p.diagram} url={p.clientUrl || 'promiseme.dev/preview'} note="System overview" />
+							<BrowserFrame
+								variant={p.diagram}
+								url={p.clientUrl || 'promiseme.dev/preview'}
+								image={p.image}
+								alt={`${p.client} — ${p.type}`}
+								note="System overview"
+							/>
 						</div>
 					</article>
 				))

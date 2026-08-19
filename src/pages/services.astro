@@ -139,7 +139,7 @@ const serviceSchema = [
 		<div class="gut">
 			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 260px), 1fr));gap:1.5rem">
 				{
-					businessSolutions.map((sol, idx) => (
+					businessSolutions.map((sol) => (
 						<div class="pillar" style="border-top-color:var(--accent);padding-top:1.4rem" data-reveal>
 							<div style="width:36px;height:36px;background:rgba(255,213,0,0.15);border:1px solid var(--accent);border-radius:4px;display:grid;place-items:center;color:var(--accent);margin-bottom:0.8rem">
 								<Icon name={sol.icon} size={20} color="var(--accent)" />

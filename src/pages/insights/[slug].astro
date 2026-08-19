@@ -80,18 +80,18 @@ const articleSchema = [
 
 			<div class="article__body" data-reveal>
 				{
-					article.body.map((block, i) => {
+					article.body.map((block) => {
 						if (block.type === 'h2') {
-							return <h2 key={i}>{block.text}</h2>;
+							return <h2>{block.text}</h2>;
 						}
 						if (block.type === 'ul') {
 							return (
-								<ul key={i}>
-									{block.items?.map((it, j) => <li key={j}>{it}</li>)}
+								<ul>
+									{block.items?.map((it) => <li>{it}</li>)}
 								</ul>
 							);
 						}
-						return <p key={i}>{block.text}</p>;
+						return <p>{block.text}</p>;
 					})
 				}
 			</div>

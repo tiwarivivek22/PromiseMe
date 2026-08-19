@@ -60,7 +60,13 @@ const projectSchema = [
 
 	<section class="section section--no-rule">
 		<div class="gut">
-			<BrowserFrame variant={project.diagram} url={project.clientUrl || 'promiseme.dev/system'} note="System preview" />
+			<BrowserFrame
+				variant={project.diagram}
+				url={project.clientUrl || 'promiseme.dev/system'}
+				image={project.image}
+				alt={`${project.client} — ${project.type}`}
+				note="System preview"
+			/>
 		</div>
 	</section>
 

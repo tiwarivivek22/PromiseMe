@@ -2,26 +2,52 @@
 import ProjectPreview from './ProjectPreview.astro';
 
 interface Props {
-	variant: 'browser' | 'blocks' | 'flow' | 'modules' | 'lines' | 'sync';
+	variant?: 'browser' | 'blocks' | 'flow' | 'modules' | 'lines' | 'sync';
 	url?: string;
 	note?: string;
+	image?: string;
+	alt?: string;
 }
-const { variant, url, note } = Astro.props;
+const { variant = 'browser', url, note, image, alt } = Astro.props;
 ---
 
 <figure class="browser">
 	<div class="browser__bar">
 		<span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-		<span class="browser__url">{url ?? 'client.example.internal'}</span>
-		<span class="mono" style="font-size:0.62rem;letter-spacing:0.1em;color:var(--ink-faint)">[ELD]</span>
+		<span class="browser__url">{url ?? 'promiseme.dev/preview'}</span>
+		<span class="mono" style="font-size:0.62rem;letter-spacing:0.1em;color:var(--ink-faint)">[LIVE]</span>
 	</div>
 	<div class="browser__body">
-		<p class="browser__placeholder-note">
-			<b>FILE_PREVIEW.SVG</b>
-			<span>{note ?? '[REAL CONTENT NEEDED — replace with actual project screenshot]'}</span>
-		</p>
-		<div class="browser__art">
-			<ProjectPreview variant={variant} />
-		</div>
+		{
+			image ? (
+				<div class="browser__img-wrapper">
+					<img class="browser__img" src={image} alt={alt ?? note ?? 'PromiseMe project preview'} loading="lazy" />
+				</div>
+			) : (
+				<div class="browser__art">
+					<ProjectPreview variant={variant} />
+				</div>
+			)
+		}
 	</div>
 </figure>
+
+<style>
+	.browser__img-wrapper {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		background: #0e0e0e;
+		display: flex;
+	}
+	.browser__img {
+		width: 100%;
+		height: auto;
+		display: block;
+		object-fit: cover;
+		transition: transform 320ms var(--ease);
+	}
+	.browser:hover .browser__img {
+		transform: scale(1.02);
+	}
+</style>
