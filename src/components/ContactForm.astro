@@ -11,7 +11,7 @@ const needs = [
 ];
 
 const waUrl = `https://wa.me/${site.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-	"Hi Vivek, I'd like to discuss a digital project with PromiseMe."
+	"Hi, I'd like to discuss a digital project with PromiseMe."
 )}`;
 ---
 
@@ -69,7 +69,7 @@ const waUrl = `https://wa.me/${site.whatsapp.replace(/[^0-9]/g, '')}?text=${enco
 		<div class="form__grid">
 			<div class="form__field">
 				<label for="f-name">Your Name <span class="req">*</span></label>
-				<input id="f-name" name="name" type="text" autocomplete="name" placeholder="Vivek Sharma" required />
+				<input id="f-name" name="name" type="text" autocomplete="name" placeholder="John Doe" required />
 			</div>
 			<div class="form__field">
 				<label for="f-email">Email Address <span class="req">*</span></label>
@@ -406,7 +406,7 @@ const waUrl = `https://wa.me/${site.whatsapp.replace(/[^0-9]/g, '')}?text=${enco
 		form.addEventListener('submit', (e) => {
 			e.preventDefault();
 			const d = new FormData(form as HTMLFormElement);
-			const email = (form as HTMLElement).getAttribute('data-email') ?? 'tiwarivivek8765@gmail.com';
+			const email = (form as HTMLElement).getAttribute('data-email') ?? 'connect.promiseme@gmail.com';
 			const lines = [
 				`Name: ${d.get('name')}`,
 				`Company: ${d.get('company') || '—'}`,

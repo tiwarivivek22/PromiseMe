@@ -13,10 +13,10 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
 	{
-		name: 'Vivek Tiwari',
-		role: 'Founder · Lead Solutions Architect & Developer',
+		name: 'PromiseMe Solutions Team',
+		role: 'Full-Stack Architecture & Engineering Team',
 		expertise: ['Full-Stack Web Applications', 'Automation & Workflows', 'Custom Software Systems', 'API Integrations'],
-		bio: 'Passionate about helping startups, businesses, and individuals turn complex operational ideas into high-performing, reliable digital products.',
+		bio: 'Dedicated to helping startups, businesses, and individuals turn complex operational ideas into high-performing, reliable digital products.',
 		index: '01',
 		signal: '01',
 	},

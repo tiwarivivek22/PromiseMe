@@ -7,6 +7,8 @@ import Icon from '../components/Icon.astro';
 import { services, businessSolutions } from '../data/services';
 import { site } from '../data/site';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const serviceSchema = [
 	{
 		'@context': 'https://schema.org',
@@ -118,7 +120,7 @@ const serviceSchema = [
 							</ul>
 						</div>
 
-						<a class="btn btn--ghost" href="/contact">
+						<a class="btn btn--ghost" href={`${base}/contact`}>
 							Discuss Your {s.title} Requirement <span class="btn-arrow">→</span>
 						</a>
 					</div>
@@ -160,7 +162,7 @@ const serviceSchema = [
 			<h2 class="section__head-title" id="svc-process-title" data-reveal>From Requirement to Reality</h2>
 			<span class="section__head-note" data-reveal>
 				Clear communication at every stage means fewer surprises and better results. Full breakdown on our
-				<a class="textlink" href="/process" style="display:inline-flex;margin-left:0.4rem">Process page <span class="arr">→</span></a>.
+				<a class="textlink" href={`${base}/process`} style="display:inline-flex;margin-left:0.4rem">Process page <span class="arr">→</span></a>.
 			</span>
 		</div>
 		<div class="gut">

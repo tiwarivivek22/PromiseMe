@@ -16,6 +16,7 @@ const { project } = Astro.props;
 const index = projects.findIndex((p) => p.slug === project.slug);
 const prev = projects[(index - 1 + projects.length) % projects.length];
 const next = projects[(index + 1) % projects.length];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const projectSchema = [
 	{
@@ -131,10 +132,10 @@ const projectSchema = [
 	<!-- PREV / NEXT -->
 	<nav class="section" aria-label="More case studies">
 		<div class="gut" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
-			<a class="case-row__client" href={`/work/case-studies/${prev.slug}`} style="text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
+			<a class="case-row__client" href={`${base}/work/case-studies/${prev.slug}`} style="text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
 				← {prev.client}
 			</a>
-			<a class="case-row__client" href={`/work/case-studies/${next.slug}`} style="text-transform:uppercase;justify-self:end;text-align:right;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
+			<a class="case-row__client" href={`${base}/work/case-studies/${next.slug}`} style="text-transform:uppercase;justify-self:end;text-align:right;font-size:clamp(1.2rem,2.4vw,1.9rem);border-top:1px solid var(--rule-strong);padding-top:1.4rem">
 				{next.client} →
 			</a>
 		</div>

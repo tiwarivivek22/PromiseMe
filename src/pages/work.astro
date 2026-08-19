@@ -6,6 +6,7 @@ import { site } from '../data/site';
 
 const featured = featuredProject(projects);
 const rest = nonFeatured(projects);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const caseSchema = featured
 	? [
@@ -75,10 +76,10 @@ const caseSchema = featured
 					</div>
 				</div>
 				<div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.6rem">
-					<a class="btn btn--ghost" href="/contact">
+					<a class="btn btn--ghost" href={`${base}/contact`}>
 						Discuss Similar Project <span class="btn-arrow">→</span>
 					</a>
-					<a class="textlink" href={`/work/case-studies/${featured.slug}`}>
+					<a class="textlink" href={`${base}/work/case-studies/${featured.slug}`}>
 						View Case Study <span class="arr">→</span>
 					</a>
 				</div>
@@ -116,7 +117,7 @@ const caseSchema = featured
 							</div>
 							<h3 class="case-row__client">{p.client}</h3>
 							<p class="case-row__type">{p.summary}</p>
-							<a class="textlink case-row__cta" href={`/work/case-studies/${p.slug}`}>
+							<a class="textlink case-row__cta" href={`${base}/work/case-studies/${p.slug}`}>
 								View case study <span class="arr">→</span>
 							</a>
 						</div>
@@ -141,8 +142,8 @@ const caseSchema = featured
 			<h2 class="cta__title">Your project <em>next.</em></h2>
 			<div class="cta__side">
 				<p>Tell us what you want to achieve. We'll help you figure out what needs to be built.</p>
-				<a class="btn btn--paper" href="/contact">
-					Start a Project <span class="btn-arrow">→</span>
+				<a class="btn btn--paper" href={`${base}/contact`}>
+					Let's discuss your project <span class="btn-arrow">→</span>
 				</a>
 			</div>
 		</div>

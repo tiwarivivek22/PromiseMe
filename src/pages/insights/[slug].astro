@@ -14,6 +14,7 @@ export function getStaticPaths() {
 const { article } = Astro.props;
 const related = insights.find((a) => a.slug === article.related) ?? insights[0];
 const relatedService = services.find((s) => s.id === article.related);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const articleSchema = [
 	{
@@ -70,7 +71,7 @@ const articleSchema = [
 					relatedService && (
 						<div style="margin-top:2rem;border-top:1px solid var(--rule);padding-top:1.2rem;display:grid;gap:0.8rem">
 							<span class="meta">Related service</span>
-							<a class="textlink" href={`/services#${relatedService.id}`}>
+							<a class="textlink" href={`${base}/services#${relatedService.id}`}>
 								{relatedService.title} <span class="arr">→</span>
 							</a>
 						</div>
@@ -107,7 +108,7 @@ const articleSchema = [
 			</div>
 			<div style="display:grid;gap:1.4rem;justify-items:start">
 				<p style="color:var(--ink-soft);max-width:44ch">{related.excerpt}</p>
-				<a class="btn btn--ghost" href={`/insights/${related.slug}`}>
+				<a class="btn btn--ghost" href={`${base}/insights/${related.slug}`}>
 					Read article <span class="btn-arrow">→</span>
 				</a>
 			</div>

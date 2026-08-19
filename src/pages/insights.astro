@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import { insights } from '../data/insights';
 import { site } from '../data/site';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const articleSchema = [
 	{
 		'@context': 'https://schema.org',
@@ -57,7 +59,7 @@ const articleSchema = [
 			{
 				insights.map((a, i) => (
 					<article class={`insight-card ${i === 0 ? 'insight-card--wide' : ''}`} data-reveal style={i === 0 ? 'grid-column: span 7' : 'grid-column: span 5'}>
-						<a href={`/insights/${a.slug}`} style="display:grid;gap:1.4rem">
+						<a href={`${base}/insights/${a.slug}`} style="display:grid;gap:1.4rem">
 							<span class="insight-card__cat">
 								<span class="cat">{a.category}</span>
 								<span>{i + 1 < 10 ? `0${i + 1}` : i + 1}</span>
@@ -85,7 +87,7 @@ const articleSchema = [
 					<p style="color:var(--ink-soft);max-width:40ch">
 						Let's discuss what you want to achieve. We'll help you figure out what needs to be built.
 					</p>
-					<a class="btn btn--ghost" href="/contact">
+					<a class="btn btn--ghost" href={`${base}/contact`}>
 						Discuss Requirement <span class="btn-arrow">→</span>
 					</a>
 				</div>

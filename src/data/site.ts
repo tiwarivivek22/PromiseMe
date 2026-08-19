@@ -20,8 +20,8 @@ export const site = {
 		'We help businesses, startups, and individuals transform their ideas and operational requirements into reliable digital solutions. From a simple business website to a complete web application or custom automation system, we handle the process from planning to development and deployment.',
 
 	// Founder & Direct Contact
-	founder: 'Vivek Tiwari',
-	email: 'tiwarivivek8765@gmail.com',
+	founder: 'PromiseMe Team',
+	email: 'connect.promiseme@gmail.com',
 	phone: '+91-7654406307',
 	whatsapp: '+91-7654406307',
 	address: 'Global / Remote-First',
